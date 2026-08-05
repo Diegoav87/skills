@@ -1,0 +1,3 @@
+# Junctions into .agents/skills so Claude Code loads them for this project.
+# Local-only: git would follow the junctions and commit duplicate copies.
+.claude/skills/
