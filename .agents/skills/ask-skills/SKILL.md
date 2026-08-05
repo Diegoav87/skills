@@ -1,10 +1,10 @@
 ---
-name: ask-matt
+name: ask-skills
 description: Ask which skill or flow fits your situation. A router over the skills in this repo.
 disable-model-invocation: true
 ---
 
-# Ask Matt
+# Ask Skills
 
 You don't remember every skill, so ask. This is the map of the trimmed flow.
 
@@ -23,7 +23,7 @@ Everything routes off size. Default to the shortest path that fits.
 
 1. **`/grill-with-docs`** — sharpen the idea by interview, one load-bearing
    question at a time; trivial calls get batched. Leaves a paper trail in
-   `CONTEXT.md` + ADRs.
+   `CONTEXT.md` + `ARCHITECTURE.md`.
 2. **`/to-spec`** — synthesize the thread into a spec on GitHub Issues.
 3. **`/to-tickets`** — split the spec into tracer-bullet vertical slices, each
    with its blocking edges as native GitHub links. Only when slices can run in
@@ -43,7 +43,8 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
 ## Vocabulary underneath (pulled in by other skills)
 
 - **`/domain-modeling`** — sharpen domain language; keep `CONTEXT.md` a clean
-  glossary; record hard-to-reverse decisions as ADRs.
+  glossary and `ARCHITECTURE.md` a present-tense record of what the system is and
+  why. Both are overwritten when things change — never appended to.
 - **`/codebase-design`** — deep-module vocabulary (module, interface, depth,
   seam, adapter, leverage, locality). `/tdd` speaks it.
 
@@ -54,7 +55,11 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
 - **`/handoff`** — compact the conversation into a markdown file so a fresh
   session can pick up. Forks; `/compact` (built-in) continues in place.
 
-## Precondition
+## Preconditions
 
-- **`/setup-matt-pocock-skills`** — configure the issue tracker, labels, and doc
-  layout the other skills assume. Run once.
+- **`/setup-skills`** — configure the issue tracker, labels, and doc
+  layout the other skills assume. Run once, cheap.
+- **`/migrate-docs`** — only for a project already documented some other way
+  (ADRs, RFCs, design docs, another skill system). Folds what's still true into
+  `CONTEXT.md` + `ARCHITECTURE.md`, routes unbuilt plans to the tracker, and drops
+  the history. A one-time cost that buys every later session a small read path.

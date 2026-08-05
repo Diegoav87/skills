@@ -29,32 +29,39 @@ _Avoid_: Client, buyer, account
 - **Only include terms specific to this project's context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
 - **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
 
-## Single vs multi-context repos
+## Where the glossary lives
 
-**Single context (most repos):** One `CONTEXT.md` at the repo root.
+A `CONTEXT.md` can sit at any level, next to that level's `ARCHITECTURE.md`. The
+rule that decides which level is simple:
 
-**Multiple contexts:** A `CONTEXT-MAP.md` at the repo root lists the contexts, where they live, and how they relate to each other:
+**A term is defined at the highest level where it's true, and only there.**
 
-```md
-# Context Map
+The root glossary holds vocabulary the whole system shares — `User`, `Account`,
+`Money`. A module's glossary holds only what that module *adds* — `auth/` defines
+`Session`, `Claim`, `Refresh Token`, and says nothing about `User`, because the root
+already did.
 
-## Contexts
+That's inheritance, not duplication. An agent reading down from the root to `auth/`
+accumulates exactly the vocabulary it needs, and no term ever appears twice.
 
-- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
-- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
-- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
+**Create a level's glossary only when that level introduces vocabulary of its own.**
+Most modules don't. A module with no special terms simply has no `CONTEXT.md`, and
+that's the normal case — not a gap to fill.
 
-## Relationships
+## Never copy a definition downward
 
-- **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
-- **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices
-- **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
-```
+A term repeated in a child glossary is a second copy that will drift, and then two
+parts of the system quietly mean different things by the same word. If you're about
+to restate a parent's term, don't — the reader already has it.
 
-The skill infers which structure applies:
+The one legitimate exception is genuine divergence: two siblings really do mean
+different things by the same word. Then define it in each, and say in each
+definition what it means *here*. That divergence is real information about the
+boundary between them, and worth the words.
 
-- If `CONTEXT-MAP.md` exists, read it to find contexts
-- If only a root `CONTEXT.md` exists, single context
-- If neither exists, create a root `CONTEXT.md` lazily when the first term is resolved
+## Redefining a parent's term is a design smell
 
-When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+If a module needs to contradict the root's definition of `User`, either the root's
+definition is too narrow, or the module is a different domain than its siblings.
+Surface it rather than quietly overriding — it usually means the boundaries are in
+the wrong place.
