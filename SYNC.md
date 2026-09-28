@@ -18,5 +18,5 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | pstack path | Decision |
 |---|---|---|
-| unslop | skills/unslop | Copied verbatim at `ecc249f` (2026-09-28). Re-diff on each sync. |
+| unslop | skills/unslop | Copied at `ecc249f` (2026-09-28). Ours: model-invoked, with a trigger description. Body unchanged; re-diff on each sync. |
 | (others pending first comparison) | | |
