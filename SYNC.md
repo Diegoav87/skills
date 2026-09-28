@@ -18,4 +18,5 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | pstack path | Decision |
 |---|---|---|
-| (pending first comparison) | | |
+| unslop | skills/unslop | Copied verbatim at `ecc249f` (2026-09-28). Re-diff on each sync. |
+| (others pending first comparison) | | |

@@ -214,4 +214,6 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 
 Built on [mattpocock/skills](https://github.com/mattpocock/skills) by Matt Pocock, whose README says *"Hack around with them. Make them your own."* If you are starting from scratch, read the original first. It is more complete, and you may cut it differently than this repo did.
 
+`unslop` is copied unchanged from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (MIT).
+
 MIT. See [LICENSE](LICENSE).
