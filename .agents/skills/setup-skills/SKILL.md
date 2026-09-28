@@ -121,7 +121,8 @@ fires, and update it in the same change that makes it false.
 | [path]   | [trigger, written so it can be ruled out without opening the file] | [the concrete change that makes it false] |
 
 For anything already built the code and the `ARCHITECTURE.md` files win; a reference
-document that contradicts them is out of date.
+document that contradicts them is out of date. What qualifies, and how to write the
+two triggers: `REFERENCE-DOCS-FORMAT.md` in the `domain-modeling` skill.
 
 **Dated notes** (`docs/research/`): never maintained, never trusted without
 checking. They describe a moment — verify against reality before acting.

@@ -117,6 +117,13 @@ what stops someone re-proposing a different database. Name a rejected alternativ
 only when the rejection is not obvious and an agent would otherwise propose it
 again: one line, `**Not X** — why`, next to the choice it lost to.
 
+### Register whole-system facts as reference documents
+
+A fact true of the whole system and too large for the read path — the full schema,
+deployment, a cross-cutting inventory — is a **reference document** in `docs/`,
+registered in `CLAUDE.md` with its two triggers. Use the format in
+[REFERENCE-DOCS-FORMAT.md](./REFERENCE-DOCS-FORMAT.md).
+
 ### When a decision reverses, overwrite it
 
 This is the step that keeps the read path from growing forever.

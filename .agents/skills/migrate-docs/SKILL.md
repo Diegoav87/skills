@@ -189,15 +189,11 @@ recognising because a migration loses them silently:
   across the tickets that will build each entry, the list stops existing, and
   nobody notices until something is missing from it.
 
-These become **reference documents**: they stay in `docs/`, outside the descent, and
-get registered in `CLAUDE.md` with two triggers — when to read the document, and
-what change makes it false. A document you can't write both triggers for isn't a
-reference document; re-check whether it's really architecture or really backlog.
-
-Vendor research, benchmarks and investigation notes are a different contract:
-`docs/research/`, dated in the filename, **never maintained**, and read with the
-date in hand. Don't fold them into a maintained document — the date is what makes
-them safe.
+These become **reference documents**, written per `REFERENCE-DOCS-FORMAT.md` in
+the `domain-modeling` skill: in `docs/`, outside the descent, registered in
+`CLAUDE.md` with both triggers. A document you can't write both triggers for isn't
+one; re-check whether it's architecture or backlog. Vendor research and
+investigation notes are dated notes in `docs/research/` instead, never maintained.
 
 Propose the set to the user before writing it. Two or three is normal for a project
 of any size; a long list means you're re-filing history instead of dropping it.
