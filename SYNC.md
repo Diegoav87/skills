@@ -9,7 +9,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | Upstream path | Decision |
 |---|---|---|
-| (pending first comparison) | | |
+| writing-for-agents | skills/productivity/writing-for-agents | Copied at `c55ee46` (2026-09-28) with SKILL-MECHANICS.md. Ours adds two Pruning lines taken from pstack's authoring-a-skill playbook. |
+| (others pending first comparison) | | |
 
 ## cursor/plugins (pstack)
 

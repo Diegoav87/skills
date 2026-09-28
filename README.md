@@ -2,7 +2,7 @@
 
 A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, review it, and keep the project's documentation true along the way.
 
-Seventeen skills, one workflow. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
+Eighteen skills, one workflow. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
 
 Based on [mattpocock/skills](https://github.com/mattpocock/skills). See [How this differs from the original](#how-this-differs-from-the-original) for what changed and why.
 
@@ -135,6 +135,7 @@ Keep steps 1 to 3 in one context window. Each `/implement` starts clean, with `/
 | `research` | agent | Delegates reading to a background agent that works from primary sources and writes a cited note under `docs/research/`, dated and versioned so it carries its own expiry. |
 | `handoff` | you | Compacts the conversation into a handoff file for a fresh session. References existing artifacts instead of duplicating them. |
 | `ask-skills` | you | The router. Tells you which skill or flow fits your situation. |
+| `writing-for-agents` | agent | Rules for any text an agent will read: skills, `CLAUDE.md`, pointed-to docs. Loaded when creating or editing a skill. |
 | `unslop` | agent | Cuts AI tells from any text you will read: filler, hedging, fancy words, em dashes, chatbot phrases. Copied from pstack. |
 
 ### Setup
@@ -193,9 +194,9 @@ Why this shape:
 
 ## How this differs from the original
 
-This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills). The original ships 37 skills across four directories. This repo keeps 15 of them, adds two (`migrate-docs`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
+This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills). The original ships 37 skills across four directories. This repo keeps 16 of them, adds two (`migrate-docs`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
 
-**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the eight `in-progress/` skills (unfinished upstream, so their behavior was unpredictable), the four `misc/` skills (one-off tooling tied to a TypeScript setup), five prose-oriented productivity skills, and five engineering skills that overlapped with something kept or targeted a stage of work that rarely comes up. Thirty-seven is a library. Seventeen is a workflow.
+**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the eight `in-progress/` skills (unfinished upstream, so their behavior was unpredictable), the four `misc/` skills (one-off tooling tied to a TypeScript setup), five prose-oriented productivity skills, and five engineering skills that overlapped with something kept or targeted a stage of work that rarely comes up. Thirty-seven is a library. Eighteen is a workflow.
 
 **A size gate at the front.** Upstream's recommended flow is always spec, then tickets, then implement. That generates ceremony for work that fits in one session. Here, `/to-spec` and `/to-tickets` both check first whether they are worth running, and `/ask-skills` routes by size before anything else. The full flow exists only for work that spans sessions or people.
 
