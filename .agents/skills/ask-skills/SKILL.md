@@ -34,6 +34,13 @@ Everything routes off size. Default to the shortest path that fits.
 
 Keep steps 1–3 in one context window; each `/implement` starts fresh.
 
+## Detour
+
+- **A design question the interview can't settle on paper** → **`/prototype`**.
+  Throwaway code that answers one question: a single HTML file to push a state
+  model through hard cases, or several UI variations on one route. Feed the
+  verdict back into `/grill-with-docs` or `/to-spec`.
+
 ## On-ramp
 
 - **Something's broken** → **`/diagnosing-bugs`**. For the hard ones: builds a

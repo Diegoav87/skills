@@ -9,6 +9,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | Upstream path | Decision |
 |---|---|---|
+| prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
+| grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. |
 | writing-for-agents | skills/productivity/writing-for-agents | Copied at `c55ee46` (2026-09-28) with SKILL-MECHANICS.md. Ours adds two Pruning lines taken from pstack's authoring-a-skill playbook. |
 | (others pending first comparison) | | |
 
