@@ -53,25 +53,6 @@ Depth follows the repo. Nothing else changes.
     └── web/…
 ```
 
-## Why it's shaped this way
-
-The goal is the **best implementation for the fewest tokens**: the agent reads
-enough to be correct and nothing beyond it.
-
-This structure gets there because an agent descends only the branch it needs. Root,
-then `api`, then `auth` — three small files, whatever else the repo contains. **The
-cost is proportional to the depth of the tree, not to the size of the repo.** Fifty
-modules cost the same as five.
-
-Two properties make that safe rather than merely cheap:
-
-- **Each level states only what it adds.** A fact lives at the highest level where
-  it's true and appears exactly once. Descending accumulates precisely the context
-  that applies.
-- **Each level records the edges between its children.** That's what tells an agent
-  working on `auth` that its ticket also reaches into `posts` — the thing it would
-  otherwise only discover by reading everything, or by breaking something.
-
 Create files lazily, and only where a level has something of its own to say. A
 module with no special vocabulary gets no `CONTEXT.md`; one whose shape is obvious
 from its code gets no `ARCHITECTURE.md` — it still appears in its parent's module
