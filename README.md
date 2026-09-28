@@ -68,7 +68,7 @@ Add `.claude/skills/` to that project's `.gitignore`. To make the skills availab
 /setup-skills
 ```
 
-This configures the three things the other skills read: which issue tracker to use, the `ready-for-agent` label, and where `CONTEXT.md` and `ARCHITECTURE.md` live. It writes `docs/agents/*.md` and adds an `## Agent skills` block to your `CLAUDE.md` or `AGENTS.md`.
+This configures the three things the other skills read: which issue tracker to use, the labels the skills apply, and where `CONTEXT.md` and `ARCHITECTURE.md` live. It writes `docs/agents/*.md` and adds an `## Agent skills` block to your `CLAUDE.md` or `AGENTS.md`.
 
 If the project already has documentation in another shape (ADRs, RFCs, design docs, a `CLAUDE.md` that grew into an architecture document), run `/migrate-docs` afterwards.
 
@@ -107,7 +107,7 @@ Keep steps 1 to 3 in one context window. Each `/implement` starts clean, with `/
 | Skill | Invoked by | What it does |
 |---|---|---|
 | `grill-with-docs` | you | Runs `grilling` with `domain-modeling` active, so the interview leaves a paper trail in the docs. |
-| `to-spec` | you | Turns the current conversation into a spec on the tracker and labels it `ready-for-agent`. Refuses to be ceremony: if the work fits one session, it tells you to skip it. |
+| `to-spec` | you | Turns the current conversation into a spec on the tracker and labels it `spec` and `ready-for-agent`. Refuses to be ceremony: if the work fits one session, it tells you to skip it. |
 | `to-tickets` | you | Spec to tracer-bullet tickets with blocking edges. Handles wide refactors as expand, migrate, contract. Publishes as GitHub issues or as one file per ticket under `.scratch/`. |
 | `implement` | you | Builds one ticket. TDD at agreed seams, review scaled to the change, keeps `ARCHITECTURE.md` true, retires the ticket, commits on the branch. |
 | `prototype` | agent | Throwaway code that answers one design question: an HTML file that drives a state model through hard cases, or several UI variations on one route. Lands on a throwaway branch; main keeps only the decision. |
@@ -188,7 +188,7 @@ Why this shape:
 
 - **The agent commits, and only commits.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing, merging, rebasing, amending, and committing on `main` are yours. You review the diff in the pull request.
 - **Issue tracker.** GitHub Issues by default, through the `gh` CLI. Anything else (Linear, Jira, local markdown) is described once in `docs/agents/issue-tracker.md` and the skills follow it.
-- **The `ready-for-agent` label** marks a spec or ticket as fully specified. `/to-spec` and `/to-tickets` apply it; `/implement` picks it up.
+- **Labels are moved by skills, not by hand.** Four states, `needs-grilling`, `ready-for-agent`, `in-progress`, `needs-review`, each applied and removed by the skill that changes it, so a filter on any one of them is always true. Two kinds, `bug` and `spec`, set once when filing. The tracker file lists who owns each.
 - **`.scratch/` is scaffolding**, not record. Local tickets live there, get deleted when done, and the directory is gitignored.
 - **`docs/agents/`** holds the per-repo config the skills read. Edit it directly; rerun `/setup-skills` only to switch trackers.
 - **`docs/research/`** holds research notes, outside the default read path, each opening with the date and versions it was verified against.

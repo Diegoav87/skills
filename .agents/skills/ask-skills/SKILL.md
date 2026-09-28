@@ -18,6 +18,9 @@ Everything routes off size. Default to the shortest path that fits.
   then `/implement` right here. The conversation is the spec — skip `/to-spec`
   and `/to-tickets`.
 - **Feature that spans multiple sessions or multiple people** → the full flow.
+- **An idea you can't work on now** → file it as a two-line issue labelled
+  `needs-grilling`. `/grill-with-docs` picks it up later; `/to-spec` retires the
+  label. Add `bug` if it's a defect.
 
 ## The main flow: idea → ship (only for big or shared work)
 

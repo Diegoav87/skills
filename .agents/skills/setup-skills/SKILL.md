@@ -9,7 +9,7 @@ disable-model-invocation: true
 Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker** — where issues live (GitHub by default)
-- **Labels** — the `ready-for-agent` label the skills apply
+- **Labels** — the six labels the skills apply and remove
 - **Domain docs** — where `CONTEXT.md` and `ARCHITECTURE.md` live, and the consumer rules for reading them
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
@@ -45,11 +45,11 @@ Default posture: these skills are set up for GitHub. If a `git remote` points at
 
 Record the choice in `docs/agents/issue-tracker.md`.
 
-**Section B — Labels.** The engineering skills apply one label: `ready-for-agent`, marking an issue/ticket as fully specified and ready to implement (`/to-spec` and `/to-tickets` apply it; `/implement` picks it up). Ask exactly one question:
+**Section B — Labels.** The engineering skills apply and remove six labels; the table in the tracker template says which skill owns each. Ask exactly one question:
 
-> Keep the default label string `ready-for-agent`? (recommended: **yes**)
+> Keep the default label strings? (recommended: **yes**)
 
-On **yes**, record it as-is. Only if the user's tracker already uses a different string, collect the override so the skills apply the existing label instead of creating a duplicate.
+On **yes**, record them as-is. Only if the user's tracker already uses different strings, collect the overrides so the skills apply the existing labels instead of creating duplicates. On GitHub, create any label that doesn't exist yet with `gh label create <name>`; check first with `gh label list`.
 
 **Section C — Domain docs.** The layout is always the same pair — `CONTEXT.md` + `ARCHITECTURE.md` — repeated at each level of the repo, with each level listing its children. The only thing to settle is **what the levels are**.
 
@@ -162,7 +162,7 @@ If it has grown well past that, offer `/migrate-docs`.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 
-- [issue-tracker-github.md](./issue-tracker-github.md) — GitHub issue tracker, including the `ready-for-agent` label
+- [issue-tracker-github.md](./issue-tracker-github.md) — GitHub issue tracker, including the label table
 - [domain.md](./domain.md) — domain doc consumer rules + layout
 
 For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch using the user's description.

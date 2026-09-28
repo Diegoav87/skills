@@ -22,7 +22,7 @@ A spec earns its cost when the work spans **multiple sessions or multiple people
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` label.
+3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `spec` and `ready-for-agent` labels. If the spec came from an issue labelled `needs-grilling`, remove that label from it.
 
 Keep the spec lean: include a section only when it has real content — omit empty ones rather than writing "N/A". The spec fixes scope and decisions; it is not padding.
 

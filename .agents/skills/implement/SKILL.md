@@ -6,6 +6,9 @@ disable-model-invocation: true
 
 Implement the work described by the user in the spec or tickets.
 
+On a real tracker, mark the ticket as yours before touching code: remove
+`ready-for-agent`, add `in-progress`. Skip this for local files.
+
 Use /tdd where possible, at seams agreed once up front — don't re-litigate the
 seams on each slice.
 
@@ -74,9 +77,10 @@ session will read and believe.
 
 - **Local files** under `.scratch/` → delete the ticket file. `.scratch/` should be
   gitignored; nothing there is a record of anything.
-- **A real tracker** → leave the issue for the user to close. Don't close it
-  yourself. Work that looks done can still come back — a bug, a review comment, a
-  follow-up in the same session — and closing is the user's call.
+- **A real tracker** → swap `in-progress` for `needs-review`, and leave the issue
+  for the user to close. Don't close it yourself. Work that looks done can still
+  come back — a bug, a review comment, a follow-up in the same session — and
+  closing is the user's call.
 
 ## Move the parent
 

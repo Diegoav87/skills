@@ -13,11 +13,28 @@ Issues and PRDs for this repo live as GitHub issues. Use the `gh` CLI for all op
 
 Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
 
-## The `ready-for-agent` label
+## Labels
 
-The one label the skills apply. It means the issue or ticket is fully specified
-and ready to implement. `/to-spec` and `/to-tickets` apply it; `/implement` picks
-up tickets that carry it. Edit the string here if this tracker uses another name.
+Four **state** labels say where an issue is in the flow. Each is applied and
+removed by a skill, so they never need updating by hand. Two **kind** labels say
+what an issue is and never change. Edit the strings if this tracker uses others.
+
+| Label | Kind | Applied by | Removed by |
+|---|---|---|---|
+| `needs-grilling` | state | the user, filing a raw idea | `/to-spec`, when it publishes the spec |
+| `ready-for-agent` | state | `/to-spec`, `/to-tickets` | `/implement`, when it starts the ticket |
+| `in-progress` | state | `/implement`, when it starts | `/implement`, when the work is done |
+| `needs-review` | state | `/implement`, when the work is done | the user, by closing the ticket |
+| `bug` | kind | whoever files it | never |
+| `spec` | kind | `/to-spec`, on the spec issue | never |
+
+Useful queries:
+
+- Ideas waiting for an interview: `gh issue list --label needs-grilling`
+- What an agent can start now: `gh issue list --label ready-for-agent` (then drop
+  the ones with open blockers)
+- What is waiting for the user's review: `gh issue list --label needs-review`
+- The roadmap without the tickets: `gh issue list --label spec`
 
 ## When a skill says "publish to the issue tracker"
 
