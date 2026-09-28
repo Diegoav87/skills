@@ -1,6 +1,6 @@
 ---
 name: setup-skills
-description: Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.
+description: Configure this repo for the engineering skills — set up its issue tracker and domain doc layout. Run once before first use of the other engineering skills.
 disable-model-invocation: true
 ---
 
@@ -70,7 +70,7 @@ See `ARCHITECTURE-FORMAT.md` and `CONTEXT-FORMAT.md` in the `domain-modeling` sk
 Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
-- The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md`
+- The contents of `docs/agents/issue-tracker.md` and `docs/agents/domain.md`
 
 Let them edit before writing.
 
@@ -128,11 +128,7 @@ checking. They describe a moment — verify against reality before acting.
 
 ### Issue tracker
 
-[one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
-
-### Labels
-
-[one-line summary — the `ready-for-agent` label]. See `docs/agents/triage-labels.md`.
+[one-line summary of where issues are tracked, and that `ready-for-agent` marks work an agent may pick up]. See `docs/agents/issue-tracker.md`.
 
 ### Domain docs
 
@@ -174,8 +170,7 @@ decide.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 
-- [issue-tracker-github.md](./issue-tracker-github.md) — GitHub issue tracker
-- [triage-labels.md](./triage-labels.md) — the `ready-for-agent` label
+- [issue-tracker-github.md](./issue-tracker-github.md) — GitHub issue tracker, including the `ready-for-agent` label
 - [domain.md](./domain.md) — domain doc consumer rules + layout
 
 For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch using the user's description.

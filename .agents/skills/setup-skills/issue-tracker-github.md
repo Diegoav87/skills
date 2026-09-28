@@ -13,6 +13,12 @@ Issues and PRDs for this repo live as GitHub issues. Use the `gh` CLI for all op
 
 Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
 
+## The `ready-for-agent` label
+
+The one label the skills apply. It means the issue or ticket is fully specified
+and ready to implement. `/to-spec` and `/to-tickets` apply it; `/implement` picks
+up tickets that carry it. Edit the string here if this tracker uses another name.
+
 ## When a skill says "publish to the issue tracker"
 
 Create a GitHub issue.

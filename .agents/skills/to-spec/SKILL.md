@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 This skill takes the current conversation context and codebase understanding and produces a spec (you may know this document as a PRD). Do NOT interview the user — just synthesize what you already know.
 
-The issue tracker and triage label vocabulary should have been provided to you. If not, stop and tell the user to run `/setup-skills`; you cannot run it yourself.
+The issue tracker should have been provided to you. If not, stop and tell the user to run `/setup-skills`; you cannot run it yourself.
 
 ## First, check a spec is worth it
 
@@ -22,7 +22,7 @@ A spec earns its cost when the work spans **multiple sessions or multiple people
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` label.
 
 Keep the spec lean: include a section only when it has real content — omit empty ones rather than writing "N/A". The spec fixes scope and decisions; it is not padding.
 
