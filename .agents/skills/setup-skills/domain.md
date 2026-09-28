@@ -13,10 +13,10 @@ do in the cases `CLAUDE.md` doesn't cover.
 
 The division between the three files the agent may hold at once:
 
-- **`CLAUDE.md`** — how to *work* here: commands, conventions, environment quirks,
+- **`CLAUDE.md`** — how to _work_ here: commands, conventions, environment quirks,
   and the read path. Not what the system is.
-- **`ARCHITECTURE.md`** — what the system *is*, and why it's shaped that way.
-- **`CONTEXT.md`** — what the words *mean*.
+- **`ARCHITECTURE.md`** — what the system _is_, and why it's shaped that way.
+- **`CONTEXT.md`** — what the words _mean_.
 
 A fact in two of them is a fact that will be updated in one. `CLAUDE.md` in
 particular attracts architecture description, because it's always loaded and so
@@ -61,12 +61,70 @@ Everything in the descent is present-tense, and therefore trustworthy without
 checking its age. Everything else is opened **only on demand**, when the current task actually needs
 it and you can name why:
 
+- **Reference documents** — the register in `CLAUDE.md`; open one when its trigger fires
 - Issues, specs, and tickets — the work item you were given, not a survey of past ones
 - `docs/research/` — dated notes; check the date before trusting them
 - Git history
 
 Never read these as background before starting. They describe how the project got
-here; implementing correctly needs to know where *here is*.
+here; implementing correctly needs to know where _here is_.
+
+## Reference documents
+
+> Optional. A project of any size rarely needs more than
+> two or three. If this project has none, delete this section and the register in
+> `CLAUDE.md` — an empty register is one more thing to read that says nothing.
+
+Some facts are true of the whole system and belong to no single level: the complete
+database schema, the shape of parts not built yet, infrastructure and deployment,
+or a cross-cutting inventory whose value is that it's in one place. They can't go in
+the descent — `ARCHITECTURE.md` is per-level and present-only, and a file every
+session pays for can't carry the whole map. So they live in `docs/`, outside the
+descent, and are registered in `CLAUDE.md`.
+
+**Each one carries two triggers, and both are load-bearing:**
+
+- **When to read it.** Written so you can rule the document out _without opening it_
+  — the same discipline the `## Modules` list already demands. A document you can't
+  rule out is one you'll either read every time (expensive) or never (useless).
+- **What makes it false.** A concrete, checkable event — "the schema changed", not
+  "things moved". `Keep the docs up to date` is the instruction everyone writes and
+  nobody follows; a trigger you can answer yes or no to at the end of a change is
+  the only version that survives.
+
+**A document without both triggers doesn't belong in the register.** That's the
+alarm, not a formatting nit: it means nobody knows when to read it or what makes it
+wrong, so it will rot and be believed anyway.
+
+### The two contracts
+
+They are not the same kind of thing and must not share a rule:
+
+- **Maintained reference** — present tense, updated with the change that moves it,
+  trusted without checking its age.
+- **Dated note** — `docs/research/`. **Never updated.** Read with its date in hand
+  and verified against reality before acting on it. Rewriting one to keep it current
+  destroys the only thing that made it safe: knowing what it was true of, and when.
+
+Flatten these into one bucket and eventually someone implements against research
+into a provider that changed its API a year ago.
+
+### The boundary
+
+Reference documents cover **what is and what is planned to be** — nothing else.
+
+- Work that's going to be built → the issue tracker, not here.
+- How the project got here → git and the issue threads, not here.
+
+That boundary is the whole safeguard. Without it `docs/` grows back into the pile
+of stale planning that this structure exists to prevent, and stale context is worse
+than absent context, because the agent trusts it.
+
+### Precedence
+
+For anything already built, the code and the per-level `ARCHITECTURE.md` win. A
+reference document that contradicts them is out of date — fix it, don't work around
+it and don't note the discrepancy in passing.
 
 ## What "minimum context" means
 
@@ -107,7 +165,7 @@ sync with prose.
 The pointer runs one way only: `ARCHITECTURE.md` names the module or area a
 decision governs. Nothing in the code points back.
 
-Comments explaining *local* non-obvious logic are fine and unaffected — this rule
+Comments explaining _local_ non-obvious logic are fine and unaffected — this rule
 is about cross-references to project documentation.
 
 ## When your work contradicts the architecture

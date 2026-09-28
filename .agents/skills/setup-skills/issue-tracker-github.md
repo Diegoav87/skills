@@ -21,6 +21,29 @@ Create a GitHub issue.
 
 Run `gh issue view <number> --comments`.
 
+## Parent work items
+
+Read by `/implement` when it finishes a ticket, to keep the thing the ticket came
+out of true.
+
+A **parent** is any issue a ticket was carved out of — an epic, a spec, a PRD, a
+tracking issue. On GitHub, find one by: the ticket's **sub-issue** link, a
+`Part of #<n>` or `## Parent` line at the top of the ticket body, or a **task list**
+in another issue that names this ticket.
+
+Most parents carry their state as a **markdown checklist** of scope. Keep it true:
+
+- A checked box names the ticket that delivered it — `- [x] … — #43`.
+- An unchecked box names the ticket it's waiting on — `- [ ] … → #45` — or says
+  outright that no ticket covers it yet.
+- Where a parent and a ticket disagree, **the ticket wins**. Fix the parent.
+
+A parent that tracks state some other way — a status field, a progress table, a
+"Remaining" section — gets the same treatment in its own shape. A parent that's pure
+prose has no state to move; leave it alone.
+
+Parents are **not** closed by an agent, same as tickets.
+
 ## Blocking and sub-issues
 
 Used by `/to-tickets` to wire tickets together on GitHub.

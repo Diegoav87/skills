@@ -109,6 +109,23 @@ Project history lives in the issue tracker and in git; don't read it as backgrou
 Fuller rules, including what to do when your work contradicts them:
 `docs/agents/domain.md`.
 
+### Reference documents
+
+[Omit this whole section if the project has none]
+
+Outside the descent. Don't read them as background: open one only when its trigger
+fires, and update it in the same change that makes it false.
+
+| Document | Open it when                                                       | Update it when                            |
+| -------- | ------------------------------------------------------------------ | ----------------------------------------- |
+| [path]   | [trigger, written so it can be ruled out without opening the file] | [the concrete change that makes it false] |
+
+For anything already built the code and the `ARCHITECTURE.md` files win; a reference
+document that contradicts them is out of date.
+
+**Dated notes** (`docs/research/`): never maintained, never trusted without
+checking. They describe a moment — verify against reality before acting.
+
 ### Issue tracker
 
 [one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
@@ -129,6 +146,12 @@ governs how everything else gets read has to live in the file that's always ther
 or it's a rule that sometimes doesn't apply. Everything that's reference rather than
 instruction stays behind the pointer.
 
+The **register of reference documents** is inline for the same reason, and it's the
+stronger case: a document nobody knows exists is never opened, and one whose write
+trigger nobody has read is never updated. Behind a pointer, the register fails in
+both directions at once. Keep it to one row per document — the fuller rules on what
+qualifies live in `docs/agents/domain.md`.
+
 **Keep the rest of `CLAUDE.md` in line with the same rules.** It's the one file paid
 unconditionally in every session, so it's the one most worth keeping short — and the
 one that most reliably grows if nobody's watching. While you're editing it, check
@@ -141,7 +164,7 @@ the sections around your block and raise it with the user if you find:
   revisited. Same tense rule as everywhere else: state what's true, delete what
   isn't.
 
-What legitimately belongs in `CLAUDE.md` is how to *work* in the repo and nothing
+What legitimately belongs in `CLAUDE.md` is how to _work_ in the repo and nothing
 else: build, test, and lint commands, conventions that aren't visible from the code,
 environment quirks, and this block. If it's grown well past that, say so and offer
 `/migrate-docs`, which splits it properly.

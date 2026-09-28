@@ -97,6 +97,9 @@ Return:
    criterion behind it. Only include a criterion when the decision is hard to
    reverse, surprising, and the result of a real trade-off; otherwise the decision
    alone. Never name a technology the system doesn't use.
+   Mark a decision **system-wide** when it belongs to no single module — hosting,
+   environments, a scheduling mechanism, a cross-cutting inventory. These have no
+   level to land on and are the ones a migration drops silently.
 2. **Structural facts** — what exists in each module, present tense, a sentence or
    two each.
 3. **Edges** — dependencies between modules: direction, what crosses (call, event,
@@ -170,6 +173,34 @@ Publish it to the configured issue tracker instead (see
 `docs/agents/issue-tracker.md`), or hand the user the list if they'd rather file it
 themselves. This is the step that preserves the project's planning, so don't skip
 it and don't silently drop items — say how many you routed.
+
+### 7b. Route what fits neither level nor ticket
+
+Some material is neither present-tense architecture nor a work item, and both
+previous steps drop it on the floor. Two shapes recur, and both are worth
+recognising because a migration loses them silently:
+
+- **The whole-system panorama** — the complete database schema, the parts not built
+  yet and how they fit, infrastructure and deployment. True or intended of the
+  system as a whole, so no level owns it, and too large for a file every session
+  pays to read.
+- **The cross-cutting inventory** — the kind of list whose value is that it's in one
+  place: every scheduled job, every external integration, every feature flag. Split
+  across the tickets that will build each entry, the list stops existing, and
+  nobody notices until something is missing from it.
+
+These become **reference documents**: they stay in `docs/`, outside the descent, and
+get registered in `CLAUDE.md` with two triggers — when to read the document, and
+what change makes it false. A document you can't write both triggers for isn't a
+reference document; re-check whether it's really architecture or really backlog.
+
+Vendor research, benchmarks and investigation notes are a different contract:
+`docs/research/`, dated in the filename, **never maintained**, and read with the
+date in hand. Don't fold them into a maintained document — the date is what makes
+them safe.
+
+Propose the set to the user before writing it. Two or three is normal for a project
+of any size; a long list means you're re-filing history instead of dropping it.
 
 ### 8. Retire the old documents
 
