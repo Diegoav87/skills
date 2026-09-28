@@ -191,8 +191,9 @@ parent; `api ↔ web` belongs to the monorepo root.
 
 ## When the file gets long
 
-A long `ARCHITECTURE.md` is a signal, not a formatting problem. Don't add a table of
-contents — the `##` headings already are one.
+A long `ARCHITECTURE.md` is a signal, not a formatting problem. **Past 80 lines,
+run these checks before adding a line**, and say in your summary which one applied.
+Don't add a table of contents — the `##` headings already are one.
 
 Ask which of these is true:
 
