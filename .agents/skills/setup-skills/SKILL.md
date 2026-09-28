@@ -148,25 +148,16 @@ trigger nobody has read is never updated. Behind a pointer, the register fails i
 both directions at once. Keep it to one row per document — the fuller rules on what
 qualifies live in `docs/agents/domain.md`.
 
-**Keep the rest of `CLAUDE.md` in line with the same rules.** It's the one file paid
-unconditionally in every session, so it's the one most worth keeping short — and the
-one that most reliably grows if nobody's watching. While you're editing it, check
-the sections around your block and raise it with the user if you find:
+**Check the rest of `CLAUDE.md` while you're in it.** It should hold only how to
+_work_ in the repo: commands, conventions not visible from the code, environment
+quirks, and this block. Point out to the user, without rewriting their sections,
+any of these:
 
-- **Architecture description.** What the system is belongs in `ARCHITECTURE.md`,
-  which the agent is about to read anyway. Two copies is one copy that goes stale.
-- **Domain vocabulary.** That's `CONTEXT.md`.
-- **History** — what the project used to do, migrations in progress, decisions
-  revisited. Same tense rule as everywhere else: state what's true, delete what
-  isn't.
+- **Architecture description** — belongs in `ARCHITECTURE.md`.
+- **Domain vocabulary** — belongs in `CONTEXT.md`.
+- **History** — what the project used to do, migrations in progress. Delete.
 
-What legitimately belongs in `CLAUDE.md` is how to _work_ in the repo and nothing
-else: build, test, and lint commands, conventions that aren't visible from the code,
-environment quirks, and this block. If it's grown well past that, say so and offer
-`/migrate-docs`, which splits it properly.
-
-Don't rewrite the user's sections yourself — point at what you found and let them
-decide.
+If it has grown well past that, offer `/migrate-docs`.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 
