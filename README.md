@@ -127,6 +127,8 @@ Keep steps 1 to 3 in one context window. Each `/implement` starts clean, with `/
 | `codebase-design` | agent | The deep-module vocabulary the other skills speak: module, interface, seam, adapter, depth, leverage, locality. Includes guides for deepening a cluster and designing an interface twice. |
 | `domain-modeling` | agent | Builds the project's glossary and architecture record as you design. Defines the `CONTEXT.md` and `ARCHITECTURE.md` formats and the rules for keeping them small. |
 
+In plain words, `codebase-design` is about one idea: a good module hides a lot of work behind a few functions, so whoever calls it, including a test, only has to learn a little. The skill gives the agent fixed words for talking about that. A **module** is any piece of code with an inside and an outside. Its **interface** is everything a caller has to know to use it, not just the function signatures. A **seam** is the place where you can swap what is behind the interface, and an **adapter** is one concrete thing plugged in at a seam, like a real Postgres store or an in-memory fake for tests. When the agent says these words in a project, this is where they come from.
+
 ### Around the session
 
 | Skill | Invoked by | What it does |
