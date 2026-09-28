@@ -107,9 +107,14 @@ report, or it's a silent edit.
 
 Say in your summary which ticket you retired.
 
-## Do not touch git
+## Commit, but only commit
 
-When the work is done, **stop — do not run any git command**. No `git add`, no
-`git commit`, no staging. Leave every change unstaged in the working tree so the
-user can review it through the VS Code diff view. The user commits themselves
-after reviewing. End by summarising what changed and where.
+When the work is done, commit it to the current branch with a message that says
+what changed and why. Committing is local and reversible, so it is yours to do.
+
+Everything past a commit is the user's. **Never push, never merge, never rewrite
+history** (no rebase, no amend, no force push), and never commit on `main`
+directly; if you are on `main`, stop and ask for a branch. The user reviews the
+diff in the pull request and decides what leaves the machine.
+
+End by summarising what you committed, on which branch, and where the changes are.

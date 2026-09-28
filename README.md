@@ -94,7 +94,7 @@ The full flow, step by step:
 1. **`/grill-with-docs`**. The agent interviews you about the plan, one load-bearing question at a time, and batches the trivial ones. As terms and decisions settle, it writes them into `CONTEXT.md` and `ARCHITECTURE.md`. Nothing is built yet.
 2. **`/to-spec`**. Synthesizes the conversation into a spec on your issue tracker. No new interview. The spec references decisions already recorded in `ARCHITECTURE.md` instead of restating them.
 3. **`/to-tickets`**. Splits the spec into tracer-bullet vertical slices, each declaring which tickets block it. Only when slices can genuinely run in parallel. If the work is one slice, it stays one ticket.
-4. **`/implement`**, one ticket per fresh session. Uses `/tdd` at seams agreed up front, reviews the change at the right scale, updates `ARCHITECTURE.md` if the shape of the system moved, retires the ticket, and stops **without running any git command** so you review the diff yourself.
+4. **`/implement`**, one ticket per fresh session. Uses `/tdd` at seams agreed up front, reviews the change at the right scale, updates `ARCHITECTURE.md` if the shape of the system moved, retires the ticket, and commits to the current branch. It never pushes, merges, or rewrites history.
 
 Keep steps 1 to 3 in one context window. Each `/implement` starts clean, with `/handoff` if the next session needs context the docs do not carry.
 
@@ -109,7 +109,7 @@ Keep steps 1 to 3 in one context window. Each `/implement` starts clean, with `/
 | `grill-with-docs` | you | Runs `grilling` with `domain-modeling` active, so the interview leaves a paper trail in the docs. |
 | `to-spec` | you | Turns the current conversation into a spec on the tracker and labels it `ready-for-agent`. Refuses to be ceremony: if the work fits one session, it tells you to skip it. |
 | `to-tickets` | you | Spec to tracer-bullet tickets with blocking edges. Handles wide refactors as expand, migrate, contract. Publishes as GitHub issues or as one file per ticket under `.scratch/`. |
-| `implement` | you | Builds one ticket. TDD at agreed seams, review scaled to the change, keeps `ARCHITECTURE.md` true, retires the ticket, never touches git. |
+| `implement` | you | Builds one ticket. TDD at agreed seams, review scaled to the change, keeps `ARCHITECTURE.md` true, retires the ticket, commits on the branch. |
 | `code-review` | agent | Two-axis review of a diff since a fixed point: **Standards** (repo conventions plus a fixed Fowler smell baseline) and **Spec** (does it do what was asked). Each axis runs in its own subagent and they are reported separately, never merged. |
 
 ### Building and fixing
@@ -182,7 +182,7 @@ Why this shape:
 
 ## Conventions the skills assume
 
-- **The agent does not run git.** `/implement` leaves every change unstaged so you review the diff. You commit. The one exception is `resolving-merge-conflicts`, whose whole job is finishing a merge.
+- **The agent commits, and only commits.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing, merging, rebasing, amending, and committing on `main` are yours. You review the diff in the pull request.
 - **Issue tracker.** GitHub Issues by default, through the `gh` CLI. Anything else (Linear, Jira, local markdown) is described once in `docs/agents/issue-tracker.md` and the skills follow it.
 - **The `ready-for-agent` label** marks a spec or ticket as fully specified. `/to-spec` and `/to-tickets` apply it; `/implement` picks it up.
 - **`.scratch/` is scaffolding**, not record. Local tickets live there, get deleted when done, and the directory is gitignored.
@@ -199,7 +199,7 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 
 **A size gate at the front.** Upstream's recommended flow is always spec, then tickets, then implement. That generates ceremony for work that fits in one session. Here, `/to-spec` and `/to-tickets` both check first whether they are worth running, and `/ask-skills` routes by size before anything else. The full flow exists only for work that spans sessions or people.
 
-**`implement` grew from 15 lines to about 115.** It was the thinnest skill upstream and the one used most. It now spells out review scaled to the change (inline for a slice, full `/code-review` for a ticket), the three documentation checks before finishing, moving the parent work item, retiring the ticket, and the rule to never touch git.
+**`implement` grew from 15 lines to about 115.** It was the thinnest skill upstream and the one used most. It now spells out review scaled to the change (inline for a slice, full `/code-review` for a ticket), the three documentation checks before finishing, moving the parent work item, retiring the ticket, and the line between what the agent may do in git (commit) and what it may not (push, merge, rewrite history).
 
 **`ARCHITECTURE.md` instead of ADRs.** Upstream records decisions as ADR files. ADRs accumulate: every reversal adds a document, and an agent has to read the whole stack to know the current state. This repo replaces them with a single present-tense `ARCHITECTURE.md` per level that is overwritten when things change. `domain-modeling` doubled in size to define the two file formats and the rules for keeping them small. Specs and tickets reference recorded decisions instead of restating them, so each fact has one home.
 

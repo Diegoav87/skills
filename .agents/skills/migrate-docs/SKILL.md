@@ -204,9 +204,9 @@ of any size; a long list means you're re-filing history instead of dropping it.
 
 ### 8. Retire the old documents
 
-Once the user has reviewed the new structure, move the old documents out. Do not
-run git yourself. Tell the user to commit the removal **separately** from the new
-documents, so it reverts cleanly if something turns out to be missing.
+Once the user has reviewed the new structure, move the old documents out and
+commit the removal **separately** from the commit that added the new documents,
+so it reverts cleanly if something turns out to be missing.
 
 Default to deleting them: git holds the history, the issue tracker holds the
 planning, and an archive directory is just the same accumulation problem one level

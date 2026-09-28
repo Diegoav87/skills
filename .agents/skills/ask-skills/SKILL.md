@@ -29,8 +29,8 @@ Everything routes off size. Default to the shortest path that fits.
    with its blocking edges as links on the tracker. Only when slices can run in
    parallel.
 4. **`/implement`** per ticket, clearing context between each — drives `/tdd` at
-   agreed seams, reviews scaled to the change size, and stops without touching
-   git so you review the diff yourself.
+   agreed seams, reviews scaled to the change size, and commits to the current
+   branch. It never pushes, merges, or rewrites history; that stays with you.
 
 Keep steps 1–3 in one context window; each `/implement` starts fresh.
 
