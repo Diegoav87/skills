@@ -68,7 +68,8 @@ Publish the approved tickets. **How** depends on the tracker `/setup-skills` con
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
 
-Do NOT close or modify any parent issue.
+Do NOT close any parent issue, and do not edit it here. `/implement` moves the
+parent's state when a ticket's work is done; publishing tickets is not that moment.
 
 <local-ticket-template>
 
