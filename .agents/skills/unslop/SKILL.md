@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Use after drafting prose the user will read or publish (docs, READMEs, issues, PR descriptions, messages), or when the user says text sounds like AI.
+description: Rewrite written text so it does not read like AI wrote it. Removes filler, hedging, vague claims, fancy words, em dashes, chatbot phrases, and passive voice. Use on any text a person will read, such as a README, a doc file, an issue, a PR description, or a message, after drafting it or when the user says it sounds like AI. Not for code.
 ---
 
 # Unslop
