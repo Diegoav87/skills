@@ -81,6 +81,7 @@ than need.
 {What exists now, in the present tense.}
 
 **{Choice}** — {the criterion that produced it.}
+**Not {alternative}** — {why, only when an agent would otherwise propose it again.}
 
 ## Modules
 
@@ -111,6 +112,8 @@ never blocks on it.
 Postgres, one schema per module, no cross-schema joins.
 
 **Postgres** — the team already runs it in production.
+**Not a document store** — every module joins on customer id; document modelling
+was tried in a spike and the joins moved into application code.
 
 ## Modules
 
@@ -126,9 +129,9 @@ Postgres, one schema per module, no cross-schema joins.
   charge. Posts calls `hasActiveCharge()`; changing that signature breaks posts.
 ```
 
-Note what the example does *not* say: which providers were evaluated, what the queue
-used to be, or why Postgres beat the alternatives. Every line is load-bearing for
-someone about to write code.
+Note what the example does *not* say: which queue providers were evaluated, or
+what the queue used to be. Every line is load-bearing for someone about to write
+code, and the one rejected alternative is there because it would be proposed again.
 
 ## The module list is the routing
 
@@ -162,11 +165,11 @@ parent; `api ↔ web` belongs to the monorepo root.
 
 ## Rules
 
-- **State the criterion, not the alternatives.** "Postgres — the team already runs
-  it" is enough to stop someone proposing a different database; the criterion does
-  the work. "We chose Postgres over MongoDB because…" costs tokens on every future
-  read and buys nothing extra. **Never name a technology the system doesn't use** —
-  naming it is what puts it back on the table.
+- **State the criterion.** "Postgres — the team already runs it" is enough to stop
+  someone proposing a different database. Add a `**Not X** — why` line only when
+  the rejection is not obvious and an agent would otherwise propose X again. One
+  line; if the rejection needs more, it is a spike result and belongs in
+  `docs/research/`.
 
 - **Only decisions that need a reason get one.** Apply all three tests — hard to
   reverse, a reader would otherwise wonder why, and there was a genuine trade-off.

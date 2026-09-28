@@ -131,11 +131,10 @@ Record a **reason** alongside the decision only when all three hold:
 If any is missing, describe what exists and skip the reason — the code already
 says what it does.
 
-Write the **criterion**, never the alternatives. "Postgres — the team already runs
-it in production" is what stops someone re-proposing a different database; the
-criterion does the work on its own. Listing what was rejected costs tokens on every
-future read and buys nothing extra. Never name a technology the system doesn't use
-— naming it is what puts it back on the table.
+Write the **criterion**: "Postgres — the team already runs it in production" is
+what stops someone re-proposing a different database. Name a rejected alternative
+only when the rejection is not obvious and an agent would otherwise propose it
+again: one line, `**Not X** — why`, next to the choice it lost to.
 
 ### When a decision reverses, overwrite it
 
