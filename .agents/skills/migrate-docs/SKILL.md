@@ -66,7 +66,7 @@ it, so a wrong tree here is wasted work.
 ### 3. Extract in parallel subagents
 
 Split the inventory into clusters — by module where the docs are already organised
-that way, otherwise by directory — and spawn one `general-purpose` subagent per
+that way, otherwise by directory — and spawn one subagent per
 cluster. Send them in a single message so they run concurrently.
 
 Each subagent gets: the file list for its cluster, the module tree from step 2, and
