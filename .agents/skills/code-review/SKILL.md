@@ -81,6 +81,24 @@ Present the two reports under `## Standards` and `## Spec` headings, verbatim or
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.
 
+### 6. Blast radius, when the diff touches shared code
+
+If the change edits something with callers outside the diff — a shared type, a
+public function, a schema, a wire format — add a third block, `## Blast radius`,
+written by you after the sub-agents report:
+
+- **The one fact it's safe because of.** Most risky changes are safe for a single
+  reason ("this only drops already-dead cache entries"). Name it, then prove it by
+  running real code — a small script or test that calls the exact function — and
+  paste the result. If you can't prove it, write **unproven**.
+- **Each risk carries how sure you are**, on this ladder, and stops where it was
+  cheap to stop: (1) you said so, (2) you pointed at the `file:line`, (3) you
+  walked the failure and it can't happen, (4) you ran it, (5) you reproduced it in
+  the running app. A finding at rung 1 is a guess and is labelled as one.
+- **Look where grep stops.** Callers are the easy part. Check the JSON an API
+  returns, a DB column, another language reading the same bytes, a feature flag,
+  a library's pinned version.
+
 ## Why two axes
 
 A change can pass one axis and fail the other:
