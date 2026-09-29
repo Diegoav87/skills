@@ -64,10 +64,11 @@ exactly as they are, even when they've been overtaken.
 If the project registers no reference documents, this check is a no-op. Skip it
 silently.
 
-**Did you leave documentation references in the code?** Code doesn't point at
-project docs, and doesn't restate decisions those docs already record. Comments
-explaining local non-obvious logic are fine — cross-references to specs, tickets,
-`ARCHITECTURE.md`, or a reference document are not.
+**Are the comments about the code beside them, and readable?** A comment
+explains the non-obvious logic it sits next to and nothing else: no pointers to
+specs, tickets, `ARCHITECTURE.md`, or reference documents, and no restating of a
+decision those docs record. Write each one in plain words the way the `unslop`
+skill prescribes; a comment is text the user reads.
 
 ## Retire the ticket
 
@@ -121,4 +122,16 @@ history** (no rebase, no amend, no force push), and never commit on `main`
 directly; if you are on `main`, stop and ask for a branch. The user reviews the
 diff in the pull request and decides what leaves the machine.
 
-End by summarising what you committed, on which branch, and where the changes are.
+## End with a reading guide
+
+The user reads the code after you, and reads faster with a map. Close with a
+summary written the way the `unslop` skill prescribes, in this shape:
+
+1. **What changed and why**, in a few sentences. What the feature or fix does
+   from the user's side, and the one or two decisions that shaped it.
+2. **Read in this order.** The new or modified files, in the order that makes the
+   implementation easiest to follow — usually the entry point first, then what it
+   calls, then tests. One line per file: its path and what it now does.
+3. **Evidence.** What you ran and what it showed: typecheck, the affected tests,
+   the full suite. Name anything you did not run, and why.
+4. **Where it is.** The branch and the commits.
