@@ -13,7 +13,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. |
 | implement | skills/engineering/implement | Ours kept; upstream is six lines. Added a reading-guide ending and a comment readability rule. |
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
-| wayfinder, triage, improve-codebase-architecture, grill-me, wait-what | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
+| handoff, research | skills/* | Reviewed 2026-09-28; ours kept unchanged. |
+| wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach, to-questionnaire | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
 | grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description. grill-me and wait-what reviewed and not taken. |
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
 | grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. |
