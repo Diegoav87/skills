@@ -9,6 +9,11 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | Upstream path | Decision |
 |---|---|---|
+| to-spec, to-tickets, code-review, resolving-merge-conflicts | skills/engineering/* | Reviewed 2026-09-28; ours kept, upstream changes were punctuation only. |
+| tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. |
+| implement | skills/engineering/implement | Ours kept; upstream is six lines. Added a reading-guide ending and a comment readability rule. |
+| diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
+| wayfinder, triage, improve-codebase-architecture, grill-me, wait-what | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
 | grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description. grill-me and wait-what reviewed and not taken. |
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
 | grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. |
@@ -22,5 +27,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 | Our skill | pstack path | Decision |
 |---|---|---|
+| blast-radius | skills/blast-radius | Not copied; its certainty ladder and one-safety-fact rule folded into code-review (2026-09-28). |
+| tdd | skills/tdd | Not copied; two rules folded into our tdd. |
+| architect, interrogate, show-me-your-work, no-comments | skills/* | Reviewed 2026-09-28, not taken. |
 | unslop | skills/unslop | Copied at `ecc249f` (2026-09-28). Ours: model-invoked, with a trigger description. Body unchanged; re-diff on each sync. |
 | (others pending first comparison) | | |
