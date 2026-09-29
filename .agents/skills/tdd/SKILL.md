@@ -36,3 +36,5 @@ When the shape of that interface is itself in question (how deep the module is, 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+- **Watch it fail for the right reason.** Run the new test before writing the implementation. If it passes, or fails on something other than the behaviour it encodes, fix the test before touching production code.
+- **Prefer no new test over a bad test.** A bad test mostly exercises mocks, mirrors the current implementation, depends on timing or global state, or needs expensive infrastructure for a small change. When the only test you could write is a bad one, use the closest executable check instead — a targeted script, a curl, a focused integration run — and say so.
