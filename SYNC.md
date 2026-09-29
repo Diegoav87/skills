@@ -15,6 +15,7 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
 | handoff, research | skills/* | Reviewed 2026-09-28; ours kept unchanged. |
 | wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach, to-questionnaire | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
+| ask-skills | skills/engineering/ask-matt | Ours kept as the map. Added more starting points and his phase-boundary tree; PHASE-BOUNDARIES.md copied verbatim (2026-09-28). wizard, reflect (pstack) not taken. |
 | grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description. grill-me and wait-what reviewed and not taken. |
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
 | grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. |

@@ -22,6 +22,17 @@ Everything routes off size. Default to the shortest path that fits.
   `needs-grilling`. `/grill-with-docs` picks it up later; `/to-spec` retires the
   label. Add `bug` if it's a defect.
 
+## Other starting points
+
+- **A project from scratch** → `/setup-skills` first, then `/grill-with-docs`,
+  then the size gate above.
+- **Removing something** → `/implement` directly. Its doc check deletes the lines
+  that described what's gone. If callers are spread across the codebase, it's a
+  wide refactor: `/to-tickets` sequences it as expand, migrate, contract.
+- **A refactor that touches many files** → `/to-tickets`, same reason.
+- **Picking up a branch another session or person left** → `/code-review`
+  against `main` first, then continue from what it reports.
+
 ## The main flow: idea → ship (only for big or shared work)
 
 1. **`/grill-with-docs`** — sharpen the idea by interview, one load-bearing
@@ -74,8 +85,25 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
 
 - **`/research`** — delegate reading to a background agent; it investigates
   primary sources and leaves a cited Markdown file. Feed it into `/grill-with-docs`.
-- **`/handoff`** — compact the conversation into a markdown file so a fresh
-  session can pick up. Forks; `/compact` (built-in) continues in place.
+- **`/handoff`** — write a portable markdown file so a session elsewhere can
+  pick up. Narrow: see Phase boundaries.
+
+## Phase boundaries
+
+A phase is a chunk of work: the grilling, the implementation, the review. At the
+boundary between two, five options, tried in this order; the first yes wins:
+
+1. **Continue** — the next phase needs this conversation as its source (grilling →
+  implement is the standard case), or there's room left. Costs nothing.
+2. **`/clear`** — nothing here matters to what's next.
+3. **`/handoff`** — only for a new harness, a new directory, a colleague, or a
+  side task forked mid-phase. It buys portability; if nothing travels, skip it.
+4. **Subagent** — the task is scoped tightly enough to run without you.
+5. **`/compact`** — the default, at the bottom because the four above are cheaper.
+  Pass it what the next phase needs: `/compact we're going to QA this area`.
+
+Decide at the boundary, never mid-phase. The reasoning behind each branch:
+[PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md).
 
 ## Preconditions
 
