@@ -21,6 +21,11 @@ Everything routes off size. Default to the shortest path that fits.
 - **An idea you can't work on now** → file it as a two-line issue labelled
   `needs-grilling`. `/grill-with-docs` picks it up later; `/to-spec` retires the
   label. Add `bug` if it's a defect.
+- **A grill blocked on someone else's answer** → say whose call it is and keep
+  going. The grill pauses on a questionnaire issue, labelled `needs-grilling`,
+  holding what you settled and what they must. Once the answers are in, say so
+  here or run `/grill-with-docs` on the issue; it asks only what the answers
+  unblocked, then `/to-spec`.
 
 ## Other starting points
 

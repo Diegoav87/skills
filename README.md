@@ -86,11 +86,14 @@ Feature that spans several sessions or several people
 
 An idea you cannot work on now
   └── file it as a two-line issue labelled needs-grilling; pick it up later
+
+A plan whose decisions belong partly to someone else
+  └── /grill-with-docs ──► questionnaire issue ──► answers ──► resume the grill ──► /to-spec
 ```
 
 The full flow, step by step:
 
-1. **`/grill-with-docs`**. The agent interviews you about the plan in rounds. Each round asks every question whose answer does not depend on another open question, with a recommended answer for each. Big decisions get their own question; small ones collapse into a defaults list you accept in a word. As terms and decisions settle, it writes them into `CONTEXT.md` and `ARCHITECTURE.md`. Nothing is built yet. If a question cannot be settled on paper, `/prototype` answers it with throwaway code.
+1. **`/grill-with-docs`**. The agent interviews you about the plan in rounds. Each round asks every question whose answer does not depend on another open question, with a recommended answer for each. Big decisions get their own question; small ones collapse into a defaults list you accept in a word. As terms and decisions settle, it writes them into `CONTEXT.md` and `ARCHITECTURE.md`. Nothing is built yet. If a question cannot be settled on paper, `/prototype` answers it with throwaway code. If a question is someone else's call, say so: the interview carries on with the rest, then pauses on a questionnaire issue holding what you settled and what the other person must. When the answers are in, tell the agent in the same session or run `/grill-with-docs` on the issue, and it asks only what those answers unblocked.
 2. **`/to-spec`**. Synthesizes the conversation into a spec on your issue tracker. No new interview. The spec references decisions already recorded in `ARCHITECTURE.md` instead of restating them. It labels the issue `spec` and `ready-for-agent`.
 3. **`/to-tickets`**. Splits the spec into tracer-bullet vertical slices, each declaring which tickets block it. Only when slices can genuinely run in parallel. If the work is one slice, it stays one ticket.
 4. **`/implement`**, one ticket per fresh session. Marks the ticket `in-progress`, uses `/tdd` at seams agreed up front, reviews the change at the right scale, updates `ARCHITECTURE.md` if the shape of the system moved, marks the ticket `needs-review`, and commits to the current branch. It never pushes, merges, or rewrites history. It ends with a reading guide: what changed, which files to read in which order, and what was run.
@@ -144,8 +147,8 @@ In plain words: it keeps a list of what the project's words mean, and a short pr
 
 ### Around the session
 
-**`grilling`**, invoked by the agent. Interview to stress-test a plan, in rounds over the decision tree. Big decisions get their own question, small ones collapse into a defaults list.
-In plain words: the questioning engine behind `grill-with-docs`. Use it alone for a decision that touches no code.
+**`grilling`**, invoked by the agent. Interview to stress-test a plan, in rounds over the decision tree. Big decisions get their own question, small ones collapse into a defaults list. A decision that belongs to someone outside the session is deferred: the interview pauses on a questionnaire issue and resumes when the answers are in.
+In plain words: the questioning engine behind `grill-with-docs`. Use it alone for a decision that touches no code. When a question is your boss's call, it writes your boss a questionnaire instead of guessing.
 
 **`research`**, invoked by the agent. Delegates reading to a background agent that works from primary sources and writes a cited note under `docs/research/`, dated and versioned so it carries its own expiry.
 In plain words: you ask a question, an agent reads the official docs in the background and leaves a dated note. The date is there because research goes stale fast.
@@ -236,6 +239,8 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 **Six labels instead of five triage states.** Upstream's labels serve a triage skill for issues from strangers. Here each label is applied and removed by the skill that changes an issue's state, so none needs a human to keep it true, and two kind labels make the roadmap and the bug list filterable.
 
 **`grilling` works in rounds and sorts by stakes.** Upstream's grilling asks every currently askable question at once. The version here keeps that, and adds a sort: load-bearing decisions get their own question, low-stakes ones collapse into a defaults list accepted in a word.
+
+**Questionnaires come out of the grill, not a separate skill.** Upstream has `to-questionnaire`, a standalone skill that interviews you about who a document is for and what you need back. Here the need only ever shows up mid-interview, when a question turns out to be someone else's call, so the grill handles it: the decision is deferred, the interview continues with what you can answer, and it pauses on a `needs-grilling` issue holding the settled decisions and the open questions per owner. The document structure is upstream's. The answers resume the same interview, in the same session or a later one, which asks only what they unblocked.
 
 **`setup-skills` writes the read path into `CLAUDE.md`.** The descent instruction is inlined rather than left behind a pointer, because `CLAUDE.md` is the only file guaranteed to be loaded. The project's `domain.md` holds only reading rules; writing rules stay in the skills.
 

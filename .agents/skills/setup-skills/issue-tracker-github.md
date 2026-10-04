@@ -21,7 +21,7 @@ what an issue is and never change. Edit the strings if this tracker uses others.
 
 | Label | Kind | Applied by | Removed by |
 |---|---|---|---|
-| `needs-grilling` | state | the user, filing a raw idea | `/to-spec`, when it publishes the spec |
+| `needs-grilling` | state | the user, filing a raw idea; `/grilling`, pausing on a questionnaire | `/to-spec`, when it publishes the spec |
 | `ready-for-agent` | state | `/to-spec`, `/to-tickets` | `/implement`, when it starts the ticket |
 | `in-progress` | state | `/implement`, when it starts | `/implement`, when the work is done |
 | `needs-review` | state | `/implement`, when the work is done | the user, by closing the ticket |

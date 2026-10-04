@@ -14,7 +14,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | implement | skills/engineering/implement | Ours kept; upstream is six lines. Added a reading-guide ending and a comment readability rule. |
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
 | handoff, research | skills/* | Reviewed 2026-09-28; ours kept unchanged. |
-| wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach, to-questionnaire | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
+| wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
+| to-questionnaire | skills/productivity/to-questionnaire | Not taken as a skill. Its document template folded into grilling/QUESTIONNAIRE.md at `c55ee46` (2026-10-04); the grill defers questions owned by someone else and pauses on a `needs-grilling` issue. |
 | ask-skills | skills/engineering/ask-matt | Ours kept as the map. Added more starting points and his phase-boundary tree; PHASE-BOUNDARIES.md copied verbatim (2026-09-28). wizard, reflect (pstack) not taken. |
 | grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description. grill-me and wait-what reviewed and not taken. |
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |

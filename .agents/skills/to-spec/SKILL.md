@@ -12,6 +12,8 @@ The issue tracker should have been provided to you. If not, stop and tell the us
 
 A spec earns its cost when the work spans **multiple sessions or multiple people** — it's the shared artifact that lets others pick up the work. If it fits one session for one dev, skip this skill: go straight to `/to-tickets`, or `/implement` if it's a single slice. The conversation is the spec. Only continue below when the work is genuinely big or shared.
 
+A spec fixes decisions, so it waits for all of them. If the interview paused on a questionnaire and any question in it is still unanswered, stop and point the user at that issue; resume the grill once the answers are in.
+
 ## Process
 
 1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect the decisions already recorded in `ARCHITECTURE.md`.
