@@ -2,7 +2,7 @@
 
 A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, review it, and keep the project's documentation true along the way.
 
-Nineteen skills, one workflow. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
+Twenty skills, one workflow. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
 
 Based on [mattpocock/skills](https://github.com/mattpocock/skills), with pieces from [pstack](https://github.com/cursor/plugins/tree/main/pstack). See [How this differs from the original](#how-this-differs-from-the-original) for what changed and why.
 
@@ -123,6 +123,9 @@ In plain words: when talking cannot settle whether a design is right, the agent 
 **`implement`**, invoked by you. Builds one ticket. TDD at agreed seams, review scaled to the change, keeps `ARCHITECTURE.md` true, moves the ticket's labels, commits on the branch, ends with a reading guide.
 In plain words: it builds one piece of work, checks it, updates the docs that describe the system, and finishes by telling you what changed and in which order to read the files.
 
+**`flow-map`**, invoked by you. Traces existing code from its entry points to its effects, then draws it: state diagrams, sequence diagrams and a write map in one self-contained HTML page, every arrow cited to a `file:line` in an evidence table. Ends with the surprises: what the code does that the docs and tests leave unsaid.
+In plain words: when a flow is too tangled to hold in your head, it reads the code for you and draws what actually happens, with a pointer to the line behind every arrow. Run it before grilling a change to that flow.
+
 **`code-review`**, invoked by the agent. Two-axis review of a diff since a fixed point: **Standards** (repo conventions plus a fixed smell baseline) and **Spec** (does it do what was asked). Each axis runs in its own subagent and they are reported separately, never merged. For diffs that touch shared code, a third block names the one fact the change is safe because of and proves it by running code.
 In plain words: two fresh reviewers look at the change, one for "is this written the way this project writes code" and one for "does it do what the ticket asked". If the change touches something other code depends on, a third check says what could break elsewhere and how sure it is.
 
@@ -226,7 +229,7 @@ Facts that belong to the whole system and are too large for the read path, like 
 
 ## How this differs from the original
 
-This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills). The original ships 37 skills across four directories. This repo keeps 17 of them, adds two (`migrate-docs`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
+This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills). The original ships 37 skills across four directories. This repo keeps 17 of them, adds three (`migrate-docs`, `flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
 
 **Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills (unfinished upstream), the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, and the engineering skills built for inbound issue queues (`triage`, `wayfinder`) or occasional upkeep (`improve-codebase-architecture`, `wizard`). Thirty-seven is a library. Nineteen is a workflow.
 
@@ -245,6 +248,8 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 **`setup-skills` writes the read path into `CLAUDE.md`.** The descent instruction is inlined rather than left behind a pointer, because `CLAUDE.md` is the only file guaranteed to be loaded. The project's `domain.md` holds only reading rules; writing rules stay in the skills.
 
 **`migrate-docs` is new.** Adopting the documentation model on an existing project means refiling whatever is already there. The skill reads old docs once in subagents, classifies each fact as current, stale, planned, or history, keeps only the first, routes the planned work to the tracker, and drops the rest. It reports before and after size, because a migration that produces docs as long as the ones it replaced has refiled history instead of dropping it.
+
+**`flow-map` is new.** Before changing a complex flow you need to know what it does today, and docs and tests only tell part of it. The skill traces the code from entry points to effects and draws the result as diagrams in one HTML page, with every arrow backed by a `file:line`. The citation rule is the point: a diagram without evidence is a guess that looks like a fact.
 
 **`research` notes carry an expiry.** They go to a fixed place, `docs/research/`, outside the default read path, and each one opens with the date and the exact versions it was verified against. Research rots faster than anything else in a repo, so the reader checks that line before trusting the rest.
 

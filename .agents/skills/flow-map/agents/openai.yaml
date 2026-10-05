@@ -1,0 +1,3 @@
+interface:
+  display_name: "Flow map"
+  short_description: "Trace code and draw its flow as cited diagrams"

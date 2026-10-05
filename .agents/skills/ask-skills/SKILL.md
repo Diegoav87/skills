@@ -37,6 +37,9 @@ Everything routes off size. Default to the shortest path that fits.
 - **A refactor that touches many files** → `/to-tickets`, same reason.
 - **Picking up a branch another session or person left** → `/code-review`
   against `main` first, then continue from what it reports.
+- **A flow too tangled to explain before you change it** → `/flow-map` on the
+  module or flow. It traces the code and draws it, every arrow cited. Then
+  `/grill-with-docs` with the map in context.
 
 ## The main flow: idea → ship (only for big or shared work)
 
