@@ -15,8 +15,10 @@ Load Mermaid as an ES module and set the look once for every diagram on the page
     look: "handDrawn",
     layout: "elk",
     theme: dark ? "dark" : "neutral",
-    themeVariables: { edgeLabelBackground: "transparent" },
+    themeVariables: { edgeLabelBackground: dark ? "#141a28" : "#f8fafc" }, // the card color
     fontFamily: "inherit",
+    state: { useMaxWidth: false },
+    flowchart: { useMaxWidth: false },
     sequence: { mirrorActors: false, wrap: true },
   });
 </script>
@@ -26,7 +28,7 @@ Mermaid 12 bundles ELK; pin `@12`, since `@11` needs ELK registered from a separ
 
 ## Diagrams
 
-Each diagram sits in `<pre class="mermaid">` inside a card. Rules that keep them readable:
+Each diagram sits in `<pre class="mermaid">` inside a card, with `font: inherit` on the `pre` so `fontFamily: "inherit"` picks up the page font and not the monospace default. Rules that keep them readable:
 
 - `autonumber` on every sequence diagram, so the number on each message is the `#` of its evidence row.
 - `alt`, `opt`, `break` and `par` for the branches a request can take; a provider failure is a `break` or an `alt` branch, never a second diagram.
@@ -34,7 +36,7 @@ Each diagram sits in `<pre class="mermaid">` inside a card. Rules that keep them
 - One question per diagram. A state diagram with more than ~15 states, or a sequence with more than ~20 messages, splits in two along a natural boundary (before and after payment, happy path and failures).
 - Edge labels carry the guard condition in business words, not the function name. The function goes in the evidence table.
 - Group states and participants that belong to one actor or system: `state "Monato" as m { ... }`, `box Monato ... end`.
-- Direction `LR` for state diagrams with a long main path, `TB` when they fan out.
+- `useMaxWidth: false` keeps every diagram at its natural size; a wide one scrolls inside its card instead of shrinking until the labels are unreadable. Direction `TB` for a state diagram whose main path is longer than about six states, `LR` for shorter ones.
 - Mark failure states so they read at a glance with a stroke, never a fill, so both themes stay legible: `classDef bad stroke:#e5484d,stroke-width:2px` then `class Cancelled,Failed bad`.
 
 ## Evidence tables
