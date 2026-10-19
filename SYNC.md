@@ -16,13 +16,14 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. His per-seam catches/misses note taken at `49dd158` (2026-10-18). |
 | implement | skills/engineering/implement | Ours kept; upstream is six lines. Taken at `49dd158` (2026-10-18): fetch the ticket and state its title, Skill tool calls. Ours: labels, review scaled to size and findings fixed, glossary and comment checks, parent moved, commit only, reading guide. implement-spec reviewed and not taken (worktree machinery against a simple workflow). |
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Removed (2026-10-19): never used; bugs get fixed inside `/implement`. Re-add from upstream if a hard bug calls for it. |
-| handoff, research | skills/* | Reviewed 2026-09-28; ours kept unchanged. |
+| handoff | skills/productivity/handoff | His temp-dir resolution and Skill-tool wording taken at `49dd158` (2026-10-19); ours also reports the path. |
+| research | skills/engineering/research | Reviewed at `49dd158` (2026-10-19). Ours kept: dated notes under `docs/research/` unless the repo keeps them elsewhere, never updated; adds a short answer to the user. |
 | wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
 | to-questionnaire | skills/productivity/to-questionnaire | Not taken as a skill. Its document template folded into grilling/QUESTIONNAIRE.md at `c55ee46` (2026-10-04); the grill defers questions owned by someone else and pauses on a `needs-grilling` issue. |
 | ask-skills | skills/engineering/ask-matt | Ours kept as the map. Added more starting points and his phase-boundary tree; PHASE-BOUNDARIES.md copied verbatim (2026-09-28). wizard, reflect (pstack) not taken. |
 | grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description, now naming the glossary only (2026-10-18). grill-me and wait-what reviewed and not taken. |
 | domain-modeling | skills/engineering/domain-modeling | Adopted his at `49dd158` (2026-10-18): one root `GLOSSARY.md` and `GLOSSARY-FORMAT.md`. Not taken: ADRs and `GLOSSARY-MAP.md`. Ours adds the code identifier in backticks and rewriting an entry in place. Our `ARCHITECTURE.md` descent and reference documents retired. |
-| prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
+| prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28); upstream unchanged at `49dd158`. |
 | grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. His "yes accepts the recommendation" line taken at `49dd158` (2026-10-18). |
 | writing-for-agents | skills/productivity/writing-for-agents | Copied at `c55ee46` (2026-09-28) with SKILL-MECHANICS.md. Ours adds two Pruning lines taken from pstack's authoring-a-skill playbook. |
 | (others pending first comparison) | | |

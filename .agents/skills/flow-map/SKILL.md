@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Flow map
 
-A flow map is a **trace of what the code does today**, drawn. The code is the source; `ARCHITECTURE.md` is the map for finding it and the tests are claims to check against it.
+A flow map is a **trace of what the code does today**, drawn. The code is the source; the tests are claims to check against it.
 
 The target is whatever the user names: a module, a feature, a file, an endpoint, or a flow that crosses modules.
 
@@ -22,11 +22,11 @@ Follow each entry point through the code, across module edges, until it reaches 
 
 - rows written (table, columns, inside which transaction, under which lock)
 - status transitions (from → to, and the condition that guards them)
-- Redis keys and queue jobs written
+- cache keys, files, queue jobs and events written
 - calls to external providers, and what happens when the provider fails
 - what runs after the commit, and whether its failure is swallowed
 
-Done when every entry point has its effects listed with a `file:line` each, and every literal of each status union involved has a transition leading into it or is marked unreachable.
+Done when every entry point has its effects listed with a `file:line` each, and every value of each status involved has a transition leading into it or is marked unreachable.
 
 ## 3. Pick the views
 
@@ -38,7 +38,7 @@ One view per question the target raises:
 
 ## 4. Write the file
 
-One self-contained HTML file named after the target, in the folder where the repo already keeps diagrams; `docs/diagrams/` when it has none. Build the page from [PAGE.md](PAGE.md). In this order:
+One self-contained HTML file named after the target, in the folder where the repo already keeps diagrams; `docs/diagrams/` when it has none. Build the page from [PAGE.md](PAGE.md). Open it with the date and the commit it traces, so a reader knows what it was true of. Then, in this order:
 
 1. **Overview**: one diagram and one paragraph a non-developer can follow, in business words.
 2. **Detail**: the views from step 3. Under each diagram, an evidence table: one row per arrow, with what it does and its `file:line`.
