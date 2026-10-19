@@ -20,10 +20,10 @@ Read whatever exists; don't assume:
 
 - `git remote -v`: is this a GitHub repo? Which one?
 - `CLAUDE.md` and `AGENTS.md` at the repo root: does either exist, and does it already have an `## Agent skills` block?
-- `docs/agents/issue-tracker.md`: output from an earlier run
+- `docs/agents/`: output from an earlier run, including a `domain.md` older versions wrote
 - `.scratch/`: a sign that local markdown tickets are already in use
 - `GLOSSARY.md` at the root
-- **Documentation in another shape**: `docs/adr/`, `ARCHITECTURE.md` or `CONTEXT.md` files at any level, design docs, planning files from another skill system, a `CLAUDE.md` grown into an architecture description. List these; don't read them yet.
+- **Documentation in another shape**: `docs/adr/`, `ARCHITECTURE.md` or `CONTEXT.md` files at any level, reference documents an earlier `## Agent skills` block registered, design docs, planning files from another skill system, a `CLAUDE.md` grown into an architecture description. List these; don't read them yet.
 
 ## 2. Ask
 
@@ -43,7 +43,7 @@ Take the questions in order, one answer each. Lead each with the recommended ans
 
 Show the user drafts of the `## Agent skills` block and `docs/agents/issue-tracker.md`, and let them edit before writing.
 
-Write the block into `CLAUDE.md` if it exists, else into `AGENTS.md` if that exists. If neither exists, ask which one to create. Update an existing `## Agent skills` block in place and leave the rest of the file alone.
+Write the block into `CLAUDE.md` if it exists, else into `AGENTS.md` if that exists. If neither exists, ask which one to create. Write it in the language the file is written in. Replace an existing `## Agent skills` block in place, with all its subsections, and leave the rest of the file alone. Delete `docs/agents/domain.md` if an earlier run wrote it.
 
 ```markdown
 ## Agent skills
@@ -69,7 +69,7 @@ Only when the user agreed in step 2.
 1. Read the old documents in subagents when there are more than a few, so the main context holds only what they extract.
 2. Move the project's domain terms into `GLOSSARY.md`. Call the Skill tool with "domain-modeling" for the format.
 3. List any planned work the documents describe that isn't built yet, and offer to file it on the tracker.
-4. Delete the old documents in their own commit, so the removal reverts cleanly. In `CLAUDE.md`, remove only the sections the user agrees to.
+4. Delete the old documents in their own commit, so the removal reverts cleanly. In the same commit, remove code comments that point at them (`// see ARCHITECTURE.md`, `(dbdiagram)`). In `CLAUDE.md`, remove only the sections the user agrees to.
 
 ## 5. Done
 
