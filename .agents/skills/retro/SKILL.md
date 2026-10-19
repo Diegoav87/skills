@@ -42,6 +42,6 @@ Present the candidates, most severe first. For each: the mistake and its evidenc
 ## Where each fix lives
 
 - **Automated checks**: everything mechanical. Nothing has to remember them.
-- **`CODING_STANDARDS.md`**: judgement calls. `/code-review` reads it; implementation doesn't, so it costs the building agent nothing.
+- **`CODING_STANDARDS.md`**: judgement calls. `/review` reads it; implementation doesn't, so it costs the building agent nothing.
 - **`CLAUDE.md` / `AGENTS.md`**: loaded into every session, so only pointers and the few rules every agent must follow before it writes code.
 - **`GLOSSARY.md`**: domain terms.

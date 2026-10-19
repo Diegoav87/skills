@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: review
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along three axes: Standards (does the code follow this repo's conventions?), Spec (does it do what the originating issue or spec asked?), and Correctness (does it have bugs?). Runs each axis in its own sub-agent and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 

@@ -19,7 +19,7 @@ Run typechecking regularly and the affected tests as you go; run the full test s
 ## Review, scaled to the change
 
 - **Small, localized change** (a single slice, one or a few files): review it inline yourself, against the spec or ticket, for bugs, and for obvious smells. No subagents.
-- **Substantial change** (a whole ticket or spec, several modules): commit the work first, so the review can see it. Then call the Skill tool with "code-review", passing the commit you started from as the fixed point and the ticket or spec as the spec source.
+- **Substantial change** (a whole ticket or spec, several modules): commit the work first, so the review can see it. Then call the Skill tool with "review", passing the commit you started from as the fixed point and the ticket or spec as the spec source.
 
 Fix every finding that holds up, then rerun the affected tests.
 

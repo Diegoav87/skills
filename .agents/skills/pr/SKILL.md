@@ -33,7 +33,7 @@ If the branch already has an open pull request (`gh pr view`), update its title 
 
 - The diff, `git diff <base>...HEAD`, and the commit list.
 - The tickets: every issue the commits or the conversation reference.
-- What the session already produced: `/implement`'s reading guide, a `/code-review` report and its blast-radius block. Build on them rather than redoing the work.
+- What the session already produced: `/implement`'s reading guide, a `/review` report and its blast-radius block. Build on them rather than redoing the work.
 
 ## 3. Write the title and body
 
@@ -65,7 +65,7 @@ Closes #<n>
 - **Summary.** Pick the visual from [VISUALS.md](VISUALS.md): one, sometimes two.
 - **Evidence.** Only from runs: the test output from step 1, a screenshot when the change is visible and the environment can take one, a test that failed before the change and passes after it. A new feature with no before shows only the after, and says so. Name anything you did not run.
 - **Door.** Two-way when reverting the merge undoes the change. One-way when it migrates or deletes data, changes an API or a format that something outside the repo consumes, or sends something out (emails, payments, notifications).
-- **Blast radius.** From the `/code-review` blast-radius block when it ran. Otherwise, name what calls the changed code beyond the diff, and how sure you are.
+- **Blast radius.** From the `/review` blast-radius block when it ran. Otherwise, name what calls the changed code beyond the diff, and how sure you are.
 - **Tickets.** `Closes #<n>` for each ticket the branch completes, `Part of #<n>` for a spec it only advances. Leave the line out on a local tracker.
 
 Redact secrets from any output you quote: tokens, keys, connection strings. Use the terms in `GLOSSARY.md`. Write in the language of the repo's commits and docs, as the `unslop` skill prescribes, and skip preambles.

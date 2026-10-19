@@ -37,7 +37,7 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
 - **A repo that hasn't used these skills** → `/setup-skills` once. It also offers to retire documentation in another shape.
 - **Removing something** → `/implement`. If callers are spread across the codebase, it's a wide refactor: `/to-tickets` sequences it as expand, migrate, contract.
 - **A refactor that touches many files** → `/to-tickets`, same reason.
-- **A branch another session or person left** → `/code-review` against `main`, then continue from what it reports.
+- **A branch another session or person left** → `/review` against `main`, then continue from what it reports.
 - **A flow too tangled to explain before you change it** → `/flow-map` on it. It traces the code and draws it, every arrow cited. Then `/grill-with-docs` with the map in context.
 - **A design question the interview can't settle on paper** → `/prototype`: throwaway code that answers one question. Feed the verdict back into the grill or the spec.
 
@@ -46,7 +46,7 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
 - **`/grilling`**: the interview engine behind `/grill-with-docs`. Alone, for a decision that touches no code.
 - **`/domain-modeling`**: sharpens the project's terms and keeps `GLOSSARY.md` current.
 - **`/tdd`**: the red-green loop at agreed seams.
-- **`/code-review`**: three sub-agents review a diff since a fixed point, reported separately: Standards, Spec, Correctness.
+- **`/review`**: three sub-agents review a diff since a fixed point, reported separately: Standards, Spec, Correctness.
 - **`/codebase-design`**: the deep-module vocabulary (module, interface, depth, seam, adapter) that `/tdd` uses.
 
 ## Standalone

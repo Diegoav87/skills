@@ -28,7 +28,7 @@ A skill is a folder with a `SKILL.md` file: a prompt with frontmatter that tells
 Two kinds live in this repo:
 
 - **User-invoked** (`disable-model-invocation: true`): you call them explicitly, like `/implement` or `/to-spec`. They take actions with consequences, so the agent never picks them on its own.
-- **Model-invoked**: the agent reaches for them when the task fits, like `/tdd` while implementing or `/code-review` when you ask for a review. You can still call them by name.
+- **Model-invoked**: the agent reaches for them when the task fits, like `/tdd` while implementing or `/review` when you ask for a review. You can still call them by name.
 
 Each skill folder also carries an `agents/openai.yaml` so the same skill works in Codex without changes.
 
@@ -136,7 +136,7 @@ In plain words: when you are happy with the commits, this writes a pull request 
 **`flow-map`**, invoked by you. Traces existing code from its entry points to its effects, then draws it: state diagrams, sequence diagrams and a write map in one self-contained HTML page, every arrow cited to a `file:line` in an evidence table, dated with the commit it traces. Ends with the surprises: what the code does that the docs and tests leave unsaid.
 In plain words: when a flow is too tangled to hold in your head, it reads the code for you and draws what actually happens, with a pointer to the line behind every arrow. Run it before grilling a change to that flow.
 
-**`code-review`**, invoked by the agent. Three-axis review of a diff since a fixed point, each axis in its own subagent and reported separately: **Standards** (repo conventions plus a fixed smell baseline), **Spec** (does it do what was asked), and **Correctness** (bugs, edge cases, security, and whether the new behaviour is tested well). For diffs that touch shared code, a fourth block names the one fact the change is safe because of and proves it by running code.
+**`review`**, invoked by the agent. Three-axis review of a diff since a fixed point, each axis in its own subagent and reported separately: **Standards** (repo conventions plus a fixed smell baseline), **Spec** (does it do what was asked), and **Correctness** (bugs, edge cases, security, and whether the new behaviour is tested well). For diffs that touch shared code, a fourth block names the one fact the change is safe because of and proves it by running code.
 In plain words: three fresh reviewers look at the change. One asks "is this written the way this project writes code", one "does it do what the ticket asked", one "where does it break". If the change touches something other code depends on, a last check says what could break elsewhere and how sure it is.
 
 ### Building
@@ -232,7 +232,7 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 
 **`implement` does more.** Upstream's is six lines. This one scales review to the size of the change and fixes what it finds, moves the ticket's labels and the parent issue's checklist, draws the line between what the agent may do in git (commit) and what it may not (push, merge, rewrite history), and closes with a reading guide so you can follow the change file by file.
 
-**`code-review` looks for bugs.** Upstream reviews on two axes, Standards and Spec. This one adds Correctness, a third reviewer for wrong logic, edge cases, security, and the quality of the new tests, plus a blast-radius block for changes to shared code.
+**`review` looks for bugs.** Upstream's `code-review` reviews on two axes, Standards and Spec. This one adds Correctness, a third reviewer for wrong logic, edge cases, security, and the quality of the new tests, plus a blast-radius block for changes to shared code. It is named `review` so Claude Code's built-in `/code-review` doesn't shadow it.
 
 **Six labels instead of five triage states.** Upstream's labels serve a triage skill for issues from strangers. Here each label is applied and removed by the skill that changes an issue's state, so none needs a human to keep it true, and two kind labels make the roadmap and the bug list filterable.
 
@@ -242,7 +242,7 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 
 **`flow-map` is new.** Before changing a complex flow you need to know what it does today, and docs and tests only tell part of it. The skill traces the code from entry points to effects and draws the result as diagrams in one HTML page, with every arrow backed by a `file:line`. A diagram without evidence is a guess that looks like a fact.
 
-**Borrowed from pstack.** `unslop` as a skill. In `code-review`, the blast-radius block with its ladder of how sure a finding is. In `tdd`, the rules that a test must fail for the right reason and that no new test beats a bad test. In `writing-for-agents`, the rule to state the instruction and skip the reason. pstack's mode skill, playbooks, principle files, and multi-model routing were reviewed and not taken.
+**Borrowed from pstack.** `unslop` as a skill. In `review`, the blast-radius block with its ladder of how sure a finding is. In `tdd`, the rules that a test must fail for the right reason and that no new test beats a bad test. In `writing-for-agents`, the rule to state the instruction and skip the reason. pstack's mode skill, playbooks, principle files, and multi-model routing were reviewed and not taken.
 
 `SYNC.md` records the commit of each source repo that every skill was last compared against, and the decision taken.
 
