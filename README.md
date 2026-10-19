@@ -28,7 +28,7 @@ A skill is a folder with a `SKILL.md` file: a prompt with frontmatter that tells
 Two kinds live in this repo:
 
 - **User-invoked** (`disable-model-invocation: true`): you call them explicitly, like `/implement` or `/to-spec`. They take actions with consequences, so the agent never picks them on its own.
-- **Model-invoked**: the agent reaches for them when the task fits, like `/tdd` while implementing or `/diagnosing-bugs` when you say something is broken. You can still call them by name.
+- **Model-invoked**: the agent reaches for them when the task fits, like `/tdd` while implementing or `/code-review` when you ask for a review. You can still call them by name.
 
 Each skill folder also carries an `agents/openai.yaml` so the same skill works in Codex without changes.
 
@@ -133,12 +133,6 @@ In plain words: two fresh reviewers look at the change, one for "is this written
 
 **`tdd`**, invoked by the agent. The red-green loop, with what a good test is, where tests go (seams), and the anti-patterns to avoid. Prefers no new test over a bad one. Refactoring is deferred to review.
 In plain words: write a test that fails, write just enough code to make it pass, repeat. Tests go at the places you agreed on up front, and if the only test you could write would be a bad one, the agent uses a script or a manual check instead and says so.
-
-**`diagnosing-bugs`**, invoked by the agent. Six-phase discipline for hard bugs. Phase 1 is the whole skill: build a tight, red-capable feedback loop before forming any hypothesis. No loop, no theories. Redacts secrets from everything it shows.
-In plain words: before guessing why something is broken, the agent builds one command that reliably shows the bug. Only then does it shrink the case, rank causes, and fix it with a test that would catch the bug again.
-
-**`resolving-merge-conflicts`**, invoked by the agent. Resolve an in-progress merge or rebase by reading the intent behind each side, then run the project's checks.
-In plain words: when git stops on a conflict, the agent works out what each side was trying to do instead of picking lines, then makes sure the result still builds.
 
 ### Shared vocabulary
 

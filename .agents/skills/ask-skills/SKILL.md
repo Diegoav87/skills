@@ -63,14 +63,6 @@ Keep steps 1–3 in one context window; each `/implement` starts fresh.
   model through hard cases, or several UI variations on one route. Feed the
   verdict back into `/grill-with-docs` or `/to-spec`.
 
-## On-ramp
-
-- **Something's broken** → **`/diagnosing-bugs`**. For the hard ones: builds a
-  tight red-capable feedback loop before theorising, then fixes with a
-  regression test.
-- **A merge or rebase stopped on conflicts** → **`/resolving-merge-conflicts`**.
-  Reads the intent behind each side, resolves, then runs the project's checks.
-
 ## Inside the build (pulled in by `/implement`, callable on their own)
 
 - **`/tdd`** — the red-green loop at seams agreed up front. What a good test is,
