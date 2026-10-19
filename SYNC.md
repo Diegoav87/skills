@@ -17,9 +17,10 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
 | to-questionnaire | skills/productivity/to-questionnaire | Not taken as a skill. Its document template folded into grilling/QUESTIONNAIRE.md at `c55ee46` (2026-10-04); the grill defers questions owned by someone else and pauses on a `needs-grilling` issue. |
 | ask-skills | skills/engineering/ask-matt | Ours kept as the map. Added more starting points and his phase-boundary tree; PHASE-BOUNDARIES.md copied verbatim (2026-09-28). wizard, reflect (pstack) not taken. |
-| grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description. grill-me and wait-what reviewed and not taken. |
+| grill-with-docs | skills/engineering/grill-with-docs | His invocation line (2026-09-28); our description, now naming the glossary only (2026-10-18). grill-me and wait-what reviewed and not taken. |
+| domain-modeling | skills/engineering/domain-modeling | Adopted his at `49dd158` (2026-10-18): one root `GLOSSARY.md` and `GLOSSARY-FORMAT.md`. Not taken: ADRs and `GLOSSARY-MAP.md`. Ours adds the code identifier in backticks and rewriting an entry in place. Our `ARCHITECTURE.md` descent and reference documents retired. |
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28). |
-| grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. |
+| grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. His "yes accepts the recommendation" line taken at `49dd158` (2026-10-18). |
 | writing-for-agents | skills/productivity/writing-for-agents | Copied at `c55ee46` (2026-09-28) with SKILL-MECHANICS.md. Ours adds two Pruning lines taken from pstack's authoring-a-skill playbook. |
 | (others pending first comparison) | | |
 

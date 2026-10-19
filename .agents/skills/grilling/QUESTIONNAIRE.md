@@ -16,7 +16,7 @@ One paragraph orienting a reader who was not in the interview. Enough to answer 
 
 ## Settled so far
 
-One line per decision the user made in the interview, in the order made. A decision already written to `ARCHITECTURE.md` gets a pointer to it, not a restatement.
+One line per decision the user made in the interview, in the order made.
 
 ## How to answer
 

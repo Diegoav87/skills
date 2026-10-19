@@ -40,6 +40,8 @@ Format a round like so:
 - <decision>: <recommended answer>
 ```
 
+Word each question so "yes" accepts your recommended answer.
+
 Wait for the answers. Each round reshapes the tree: settled decisions push the
 frontier outward and unblock what depended on them. Recompute the frontier and ask
 the next round.
@@ -77,8 +79,8 @@ every deferred question is in the document with its owner and your recommended
 answer.
 
 Resume when the user says the answers are in, whether this session is still open
-or a fresh one picked the issue up. Take the settled list, `CONTEXT.md` and
-`ARCHITECTURE.md` as decided and ask none of it again. Each answer settles its
+or a fresh one picked the issue up. Take the settled list and `GLOSSARY.md` as
+decided and ask none of it again. Each answer settles its
 question and pushes the frontier outward; recompute and ask the next round. An
 answer that contradicts a settled decision reopens that branch: name the conflict
 and put it to the user. Then stop as above.
