@@ -10,7 +10,7 @@ Specs and tickets for this repo live as GitHub issues. Use the `gh` CLI for ever
 - **Comment**: `gh issue comment <number> --body "..."`
 - **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
-- **Make an issue a sub-issue of a parent**: `gh issue create --parent <parent> ...`, or `gh issue edit <parent> --add-sub-issue <child>` afterwards (`gh` 2.94+). Older `gh`: `gh api --method POST repos/<owner>/<repo>/issues/<parent>/sub_issues -F sub_issue_id=<child-db-id>`. Without sub-issues, put `Part of #<parent>` at the top of the child body.
+- **Make an issue a sub-issue of a parent**: `gh issue create --parent <parent> ...`, or `gh issue edit <parent> --add-sub-issue <child>` afterwards (`gh` 2.94+). Older `gh`: `gh api --method POST repos/<owner>/<repo>/issues/<parent>/sub_issues -F sub_issue_id=<child-db-id>`. Without sub-issues, add the child to a task list in the parent body and put `Part of #<parent>` at the top of the child body.
 - **Mark an issue blocked by another**: `gh api --method POST repos/<owner>/<repo>/issues/<child>/dependencies/blocked_by -F issue_id=<blocker-db-id>`. A database id comes from `gh api repos/<owner>/<repo>/issues/<n> --jq .id`, never the `#number`. Where dependencies aren't available, put `Blocked by: #<n>, #<n>` at the top of the child body.
 - **Find the frontier**: the open tickets with no open blocker (`issue_dependencies_summary.blocked_by == 0` in `gh api repos/<owner>/<repo>/issues/<n>`, or every issue in the `Blocked by` line closed).
 
@@ -36,7 +36,7 @@ Useful queries:
 
 ## Parent work items
 
-A **parent** is the issue a ticket was carved out of: a spec, an epic, a tracking issue. Find it through the ticket's sub-issue link, or a `Part of #<n>` line at the top of the ticket body.
+A **parent** is the issue a ticket was carved out of: a spec, an epic, a tracking issue. Find it through the ticket's sub-issue link, a `## Parent` section or `Part of #<n>` line in the ticket body, or a task list in another issue that names the ticket.
 
 When a parent carries its scope as a markdown checklist, keep it true:
 

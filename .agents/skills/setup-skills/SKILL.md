@@ -60,7 +60,7 @@ Write `docs/agents/issue-tracker.md` from the template for the chosen tracker:
 
 For any other tracker, write it from the user's description, covering the same operations as the GitHub template, and keep its label table.
 
-On GitHub, create each label the repo lacks: check with `gh label list`, then `gh label create <name>`.
+On GitHub, create each label the repo lacks: check with `gh label list`, then `gh label create <name>`. If `gh` is missing or not logged in, tell the user to install it or run `gh auth login`, and finish the rest of the setup.
 
 ## 4. Retire old documentation
 
