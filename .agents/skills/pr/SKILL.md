@@ -23,7 +23,7 @@ Stop and say why if any of these fails:
 - You are on a branch other than the base.
 - The working tree has no uncommitted changes.
 - The branch has commits ahead of the base: `git log <base>..HEAD --oneline`.
-- The typecheck and the full test suite pass. Run them now; their output is the evidence in step 3.
+- The typecheck and the full test suite pass. Run them now; their output is the evidence in step 3. If part of the suite can't run here (a service it needs isn't up), carry on and say in the evidence what didn't run; stop only on a failure.
 
 If `gh` can't open a pull request here (no GitHub remote, not logged in), write the title and body to a file in the OS temp directory, report its path, and stop before pushing.
 

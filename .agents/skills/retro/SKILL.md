@@ -37,7 +37,7 @@ Present the candidates, most severe first. For each: the mistake and its evidenc
 ## 4. Apply what the user picked
 
 - Show each new check failing on the real mistake before you keep it: reintroduce the mistake in a scratch change, run the check, see it fail, then drop the scratch change. A check you have never seen fail proves nothing.
-- Commit each fix on its own.
+- Commit each fix on its own, on the current branch. If you are on `main`, ask for a branch first.
 
 ## Where each fix lives
 
