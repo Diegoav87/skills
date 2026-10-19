@@ -11,9 +11,10 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 |---|---|---|
 | to-spec | skills/engineering/to-spec | Rebased on his text at `49dd158` (2026-10-18). Ours keeps: the size gate, waiting on an open questionnaire, the `spec`/`ready-for-agent`/`needs-grilling` labels, and lean user stories instead of his "extremely extensive" list. |
 | to-tickets | skills/engineering/to-tickets | Rebased on his text at `49dd158` (2026-10-18), taking sub-issues under the source issue and dropping "Blocked by" when edges are native. Ours keeps: the size gate, the parent left for `/implement` to move, and the closing one-ticket-per-`/implement` line. |
-| code-review, resolving-merge-conflicts | skills/engineering/* | Reviewed 2026-09-28; ours kept, upstream changes were punctuation only. |
-| tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. |
-| implement | skills/engineering/implement | Ours kept; upstream is six lines. Added a reading-guide ending and a comment readability rule. |
+| code-review | skills/engineering/code-review | Reviewed at `49dd158` (2026-10-18). Taken: search for every standards file, foreground sub-agents. Ours adds a Correctness axis (bugs and test quality), `file:line` on every finding, review without a tracker file, and the blast-radius block. |
+| resolving-merge-conflicts | skills/engineering/resolving-merge-conflicts | Reviewed 2026-09-28; ours kept. Removed upstream at `49dd158` as no longer needed; pending decision. |
+| tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. His per-seam catches/misses note taken at `49dd158` (2026-10-18). |
+| implement | skills/engineering/implement | Ours kept; upstream is six lines. Taken at `49dd158` (2026-10-18): fetch the ticket and state its title, Skill tool calls. Ours: labels, review scaled to size and findings fixed, glossary and comment checks, parent moved, commit only, reading guide. implement-spec reviewed and not taken (worktree machinery against a simple workflow). |
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
 | handoff, research | skills/* | Reviewed 2026-09-28; ours kept unchanged. |
 | wayfinder, triage, improve-codebase-architecture, grill-me, wait-what, teach | skills/* | Reviewed 2026-09-28, not taken. Six labels adopted instead of triage. |
