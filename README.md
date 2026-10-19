@@ -1,8 +1,8 @@
 # Skills
 
-A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, review it, and keep the project's documentation true along the way.
+A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, and review it.
 
-Twenty skills, one workflow. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
+Seventeen skills, one workflow, one documentation file. Setup is two questions, and nothing in the skills assumes a language, framework, or repo layout. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
 
 Based on [mattpocock/skills](https://github.com/mattpocock/skills), with pieces from [pstack](https://github.com/cursor/plugins/tree/main/pstack). See [How this differs from the original](#how-this-differs-from-the-original) for what changed and why.
 
@@ -64,9 +64,9 @@ The script copies every skill into the project's `.claude\skills`, replaces old 
 /setup-skills
 ```
 
-This configures the three things the other skills read: which issue tracker to use, the labels the skills apply, and where `CONTEXT.md` and `ARCHITECTURE.md` live. It writes `docs/agents/*.md` and adds an `## Agent skills` block to your `CLAUDE.md` or `AGENTS.md`.
+It asks two questions: where issues live (GitHub, local markdown files, or something you describe) and whether to keep the default label names. It writes `docs/agents/issue-tracker.md` and adds a four-line `## Agent skills` block to your `CLAUDE.md` or `AGENTS.md`.
 
-If the project already has documentation in another shape (ADRs, RFCs, design docs, a `CLAUDE.md` that grew into an architecture document), run `/migrate-docs` afterwards.
+If the project already has documentation in another shape (ADRs, architecture docs, design docs), it offers to retire it: domain terms move into `GLOSSARY.md`, unbuilt plans go to the tracker, and the old files are deleted in their own commit.
 
 ---
 
@@ -93,10 +93,10 @@ A plan whose decisions belong partly to someone else
 
 The full flow, step by step:
 
-1. **`/grill-with-docs`**. The agent interviews you about the plan in rounds. Each round asks every question whose answer does not depend on another open question, with a recommended answer for each. Big decisions get their own question; small ones collapse into a defaults list you accept in a word. As terms and decisions settle, it writes them into `CONTEXT.md` and `ARCHITECTURE.md`. Nothing is built yet. If a question cannot be settled on paper, `/prototype` answers it with throwaway code. If a question is someone else's call, say so: the interview carries on with the rest, then pauses on a questionnaire issue holding what you settled and what the other person must. When the answers are in, tell the agent in the same session or run `/grill-with-docs` on the issue, and it asks only what those answers unblocked.
-2. **`/to-spec`**. Synthesizes the conversation into a spec on your issue tracker. No new interview. The spec references decisions already recorded in `ARCHITECTURE.md` instead of restating them. It labels the issue `spec` and `ready-for-agent`.
+1. **`/grill-with-docs`**. The agent interviews you about the plan in rounds. Each round asks every question whose answer does not depend on another open question, with a recommended answer for each. Big decisions get their own question; small ones collapse into a defaults list you accept in a word. As terms settle, it writes them into `GLOSSARY.md`. Nothing is built yet. If a question cannot be settled on paper, `/prototype` answers it with throwaway code. If a question is someone else's call, say so: the interview carries on with the rest, then pauses on a questionnaire issue holding what you settled and what the other person must decide. When the answers are in, it asks only what they unblocked.
+2. **`/to-spec`**. Turns the conversation into a spec on your issue tracker. No new interview. It labels the issue `spec` and `ready-for-agent`.
 3. **`/to-tickets`**. Splits the spec into tracer-bullet vertical slices, each declaring which tickets block it. Only when slices can genuinely run in parallel. If the work is one slice, it stays one ticket.
-4. **`/implement`**, one ticket per fresh session. Marks the ticket `in-progress`, uses `/tdd` at seams agreed up front, reviews the change at the right scale, updates `ARCHITECTURE.md` if the shape of the system moved, marks the ticket `needs-review`, and commits to the current branch. It never pushes, merges, or rewrites history. It ends with a reading guide: what changed, which files to read in which order, and what was run.
+4. **`/implement`**, one ticket per fresh session. Marks the ticket `in-progress`, uses `/tdd` at seams agreed up front, reviews the change at the right scale and fixes what the review finds, marks the ticket `needs-review`, and commits to the current branch. It never pushes, merges, or rewrites history. It ends with a reading guide: what changed, which files to read in which order, and what was run.
 
 Keep steps 1 to 3 in one context window. Between phases, `/ask-skills` has a five-step tree for deciding whether to continue, clear, hand off, send work to a subagent, or compact.
 
@@ -108,49 +108,49 @@ Each entry says who invokes the skill, what it does, and then the same thing in 
 
 ### The main flow
 
-**`grill-with-docs`**, invoked by you. Runs `grilling` with `domain-modeling` active, so the interview leaves a paper trail in the docs.
-In plain words: the agent asks you questions about what you want to build, and writes down the words and decisions you agree on as it goes.
+**`grill-with-docs`**, invoked by you. Runs `grilling` with `domain-modeling` active, so the interview keeps the glossary current.
+In plain words: the agent asks you questions about what you want to build, and writes down the words you agree on as it goes.
 
-**`to-spec`**, invoked by you. Turns the current conversation into a spec on the tracker, labelled `spec` and `ready-for-agent`. Refuses to be ceremony: if the work fits one session, it tells you to skip it.
+**`to-spec`**, invoked by you. Turns the current conversation into a spec on the tracker, labelled `spec` and `ready-for-agent`. If the work fits one session, it tells you to skip it.
 In plain words: it writes up what you just discussed as one issue that someone else, or a later session, can build from. It first checks the work is big enough to deserve that.
 
-**`to-tickets`**, invoked by you. Spec to tracer-bullet tickets with blocking edges. Handles wide refactors as expand, migrate, contract. Publishes as tracker issues or as one file per ticket under `.scratch/`.
+**`to-tickets`**, invoked by you. Spec to tracer-bullet tickets with blocking edges, as sub-issues of the spec. Handles wide refactors as expand, migrate, contract. Publishes as tracker issues or as one file per ticket under `.scratch/`.
 In plain words: it cuts a spec into pieces that can each be built and tested on their own, and records which piece has to finish before which. A tracer bullet is a thin slice that goes all the way through, from database to screen, rather than one layer at a time.
 
 **`prototype`**, invoked by the agent. Throwaway code that answers one design question: an HTML file that drives a state model through hard cases, or several UI variations on one route. Lands on a throwaway branch; main keeps only the decision.
 In plain words: when talking cannot settle whether a design is right, the agent builds a quick disposable version so you can click through it and decide.
 
-**`implement`**, invoked by you. Builds one ticket. TDD at agreed seams, review scaled to the change, keeps `ARCHITECTURE.md` true, moves the ticket's labels, commits on the branch, ends with a reading guide.
-In plain words: it builds one piece of work, checks it, updates the docs that describe the system, and finishes by telling you what changed and in which order to read the files.
+**`implement`**, invoked by you. Builds one ticket. TDD at agreed seams, review scaled to the change with its findings fixed, moves the ticket's labels and its parent's checklist, commits on the branch, ends with a reading guide.
+In plain words: it builds one piece of work, checks it, and finishes by telling you what changed and in which order to read the files.
 
-**`flow-map`**, invoked by you. Traces existing code from its entry points to its effects, then draws it: state diagrams, sequence diagrams and a write map in one self-contained HTML page, every arrow cited to a `file:line` in an evidence table. Ends with the surprises: what the code does that the docs and tests leave unsaid.
+**`flow-map`**, invoked by you. Traces existing code from its entry points to its effects, then draws it: state diagrams, sequence diagrams and a write map in one self-contained HTML page, every arrow cited to a `file:line` in an evidence table, dated with the commit it traces. Ends with the surprises: what the code does that the docs and tests leave unsaid.
 In plain words: when a flow is too tangled to hold in your head, it reads the code for you and draws what actually happens, with a pointer to the line behind every arrow. Run it before grilling a change to that flow.
 
-**`code-review`**, invoked by the agent. Two-axis review of a diff since a fixed point: **Standards** (repo conventions plus a fixed smell baseline) and **Spec** (does it do what was asked). Each axis runs in its own subagent and they are reported separately, never merged. For diffs that touch shared code, a third block names the one fact the change is safe because of and proves it by running code.
-In plain words: two fresh reviewers look at the change, one for "is this written the way this project writes code" and one for "does it do what the ticket asked". If the change touches something other code depends on, a third check says what could break elsewhere and how sure it is.
+**`code-review`**, invoked by the agent. Three-axis review of a diff since a fixed point, each axis in its own subagent and reported separately: **Standards** (repo conventions plus a fixed smell baseline), **Spec** (does it do what was asked), and **Correctness** (bugs, edge cases, security, and whether the new behaviour is tested well). For diffs that touch shared code, a fourth block names the one fact the change is safe because of and proves it by running code.
+In plain words: three fresh reviewers look at the change. One asks "is this written the way this project writes code", one "does it do what the ticket asked", one "where does it break". If the change touches something other code depends on, a last check says what could break elsewhere and how sure it is.
 
-### Building and fixing
+### Building
 
-**`tdd`**, invoked by the agent. The red-green loop, with what a good test is, where tests go (seams), and the anti-patterns to avoid. Prefers no new test over a bad one. Refactoring is deferred to review.
+**`tdd`**, invoked by the agent. The red-green loop, with what a good test is, where tests go (seams), and the anti-patterns to avoid. Each proposed seam comes with what it catches and what it misses. Prefers no new test over a bad one. Refactoring is left to review.
 In plain words: write a test that fails, write just enough code to make it pass, repeat. Tests go at the places you agreed on up front, and if the only test you could write would be a bad one, the agent uses a script or a manual check instead and says so.
 
-### Shared vocabulary
+**`codebase-design`**, invoked by the agent. The deep-module vocabulary `tdd` uses when the shape of an interface is the question: module, interface, seam, adapter, depth, leverage, locality. Includes guides for deepening a cluster and designing an interface twice.
+In plain words: one idea, that a good module hides a lot of work behind a few functions, so whoever calls it, including a test, only has to learn a little. A **seam** is the place where you can swap what is behind the interface, and an **adapter** is one concrete thing plugged in there, like a real Postgres store or an in-memory fake for tests.
 
-**`codebase-design`**, invoked by the agent. The deep-module vocabulary the other skills speak: module, interface, seam, adapter, depth, leverage, locality. Includes guides for deepening a cluster and designing an interface twice.
-In plain words: one idea, that a good module hides a lot of work behind a few functions, so whoever calls it, including a test, only has to learn a little. A **module** is any piece of code with an inside and an outside. Its **interface** is everything a caller has to know to use it. A **seam** is the place where you can swap what is behind the interface, and an **adapter** is one concrete thing plugged in there, like a real Postgres store or an in-memory fake for tests. When the agent uses these words in a project, this is where they come from.
+### Language and interviews
 
-**`domain-modeling`**, invoked by the agent. Builds the project's glossary and architecture record as you design. Defines the `CONTEXT.md`, `ARCHITECTURE.md`, and reference-document formats and the rules for keeping them small.
-In plain words: it keeps a list of what the project's words mean, and a short present-tense description of each part of the system and why it is shaped that way. When you change your mind, the old line is replaced, not kept.
-
-### Around the session
+**`domain-modeling`**, invoked by the agent. Sharpens the project's terms as you design and keeps them in one `GLOSSARY.md` at the repo root.
+In plain words: it keeps a list of what the project's words mean, and which words to avoid. When the code calls something by a different name, the glossary says so.
 
 **`grilling`**, invoked by the agent. Interview to stress-test a plan, in rounds over the decision tree. Big decisions get their own question, small ones collapse into a defaults list. A decision that belongs to someone outside the session is deferred: the interview pauses on a questionnaire issue and resumes when the answers are in.
 In plain words: the questioning engine behind `grill-with-docs`. Use it alone for a decision that touches no code. When a question is your boss's call, it writes your boss a questionnaire instead of guessing.
 
-**`research`**, invoked by the agent. Delegates reading to a background agent that works from primary sources and writes a cited note under `docs/research/`, dated and versioned so it carries its own expiry.
+### Around the session
+
+**`research`**, invoked by the agent. Delegates reading to a background agent that works from primary sources and writes a cited note, dated and naming the versions it checked. Notes are never updated; newer findings get a new note.
 In plain words: you ask a question, an agent reads the official docs in the background and leaves a dated note. The date is there because research goes stale fast.
 
-**`handoff`**, invoked by you. Writes a portable markdown file so a session elsewhere can pick up. Narrow: for a new tool, a new folder, a colleague, or a side task.
+**`handoff`**, invoked by you. Writes a portable markdown file to your temp folder so a session elsewhere can pick up. Narrow: for a new tool, a new folder, a colleague, or a side task.
 In plain words: a note for a different session to continue from. Most of the time you do not need it; `/ask-skills` explains the other four options.
 
 **`ask-skills`**, invoked by you. The router. Tells you which skill or flow fits your situation, and what to do at the boundary between two phases of work.
@@ -164,90 +164,70 @@ In plain words: makes the agent's writing read like a person wrote it. Fires on 
 
 ### Setup
 
-**`setup-skills`**, invoked by you. One-time repo configuration: issue tracker, labels, doc layout.
-In plain words: run once per project. It asks a few questions and writes the small files the other skills read.
-
-**`migrate-docs`**, invoked by you. Refiles existing documentation into the `CONTEXT.md` and `ARCHITECTURE.md` layout. Old docs are read once, in subagents, never in the main context. Success is measured by how much smaller the output is than the input.
-In plain words: for a project that already has docs in another shape. It keeps what is still true, sends planned work to the tracker, and drops the history.
+**`setup-skills`**, invoked by you. One-time repo configuration: issue tracker and labels. Offers to retire documentation in another shape.
+In plain words: run once per project. It asks two questions and writes the small file the other skills read.
 
 ---
 
 ## The documentation model
 
-The skills share one idea about project documentation, and it is the part most worth understanding before using them.
+One file: **`GLOSSARY.md`** at the repo root, monorepos included. It holds the project's domain terms, one or two sentences each, with the words to avoid and the code's name for the term when it differs:
 
-Two files, repeated at every level of the repo:
-
-- **`CONTEXT.md`**: the vocabulary this level introduces. A glossary and nothing else.
-- **`ARCHITECTURE.md`**: what this level is, why it is shaped that way, its modules in one line each, and the edges between them.
-
-```
-/
-├── CONTEXT.md              ← User, Account, Money
-├── ARCHITECTURE.md         ← the system; lists auth, payments, posts + their edges
-├── auth/
-│   ├── CONTEXT.md          ← Session, Claim: only what auth adds
-│   └── ARCHITECTURE.md     ← only auth's own shape
-├── payments/…
-└── posts/…
+```md
+**Fletero** (`carrier`):
+Whoever offers the transport and owns the vehicles. A person or a company.
+_Avoid_: transportista, proveedor, socio
 ```
 
-A monorepo gets one more level on top. Nothing else changes.
+`domain-modeling` creates it the first time a term settles and rewrites an entry when its meaning changes. It holds terms and nothing else.
 
-Why this shape:
+Everything else has a home that changes with it:
 
-- **Reading is a descent, not a survey.** An agent working on `auth` reads root, then `auth`. The cost is proportional to the depth of the tree, not the size of the repo. Fifty modules cost the same as five.
-- **Each level states only what it adds.** A fact lives at the highest level where it is true and appears exactly once.
-- **Each level records the edges between its children.** That is how an agent working on `auth` learns its ticket also reaches into `posts` without reading everything.
-- **Present tense only.** When a decision reverses, the old line is overwritten. Nothing is marked superseded. History lives in git and the issue tracker, and an agent about to implement never needs it.
-- **Maps and reasons, not descriptions.** An `ARCHITECTURE.md` says what exists, what talks to what, and why a non-obvious choice was made. It does not describe what the code says more precisely. A rejected alternative gets one line, "not X, because Y", only when an agent would otherwise propose X again. Past 80 lines, the skill runs a set of checks before adding more.
-- **Files are created lazily.** A module with nothing of its own to say gets no files, just a line in its parent's module list.
+- **A decision being made** lives in the conversation, then in the spec and its tickets.
+- **A decision that's built** lives in the code. The agent reads code faster than it reads a description of it.
+- **A reason the code can't show** goes in a comment beside the code it governs, and is deleted with it.
+- **A rule for the whole repo**, one an agent would otherwise break, goes in `CLAUDE.md` as a convention.
 
-Facts that belong to the whole system and are too large for the read path, like the full database schema or the deployment layout, become **reference documents** in `docs/`. Each is registered in `CLAUDE.md` with two triggers: when to open it, and what change makes it false.
+Why only a glossary: an earlier version of these skills kept an `ARCHITECTURE.md` and a `CONTEXT.md` at every level of the repo, updated by every ticket. In a real project the architecture files grew with the number of tickets rather than the size of the system: two thirds of the commits over six weeks touched them, one reached 1,100 lines, and parts went stale. The glossary in the same project stayed short and useful. Terms change rarely, and the code can't tell an agent that the business says "fletero" for what the code calls `carrier`, and never "transportista".
 
-`/setup-skills` writes the reading rules into your `CLAUDE.md` and `docs/agents/domain.md`. The writing rules live in the `domain-modeling` skill, one format file per kind of document. `/grill-with-docs` and `/implement` keep the files true, and `/migrate-docs` gets an existing project into this shape.
+Two kinds of file are snapshots and say so: research notes and flow maps open with the date and the versions or commit they describe, and are never updated.
 
 ---
 
 ## Conventions the skills assume
 
 - **The agent commits, and only commits.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing, merging, rebasing, amending, and committing on `main` are yours. You review the diff in the pull request.
-- **Comments are about the code beside them.** No pointers to specs, tickets, or `ARCHITECTURE.md`, and no restating of decisions the docs hold. Written in plain words, because comments are text you read.
-- **Issue tracker.** GitHub Issues by default, through the `gh` CLI. Anything else (Linear, Jira, local markdown) is described once in `docs/agents/issue-tracker.md` and the skills follow it.
+- **Comments are about the code beside them.** They explain non-obvious logic and the reasons the code can't show. No pointers to specs, tickets, or issue numbers. Written in plain words, because comments are text you read.
+- **Issue tracker.** GitHub Issues through the `gh` CLI, local markdown files under `.scratch/`, or anything you describe once. `docs/agents/issue-tracker.md` says which, and the skills follow it.
 - **Labels are moved by skills, not by hand.** Four states, `needs-grilling`, `ready-for-agent`, `in-progress`, `needs-review`, each applied and removed by the skill that changes it, so a filter on any one of them is always true. Two kinds, `bug` and `spec`, set once when filing. The tracker file lists who owns each.
 - **`.scratch/` is scaffolding**, not record. Local tickets live there, get deleted when done, and the directory is gitignored.
-- **`docs/agents/`** holds the per-repo config the skills read. Edit it directly; rerun `/setup-skills` only to switch trackers.
-- **`docs/research/`** holds research notes, outside the default read path, each opening with the date and versions it was verified against.
+- **`docs/research/`** holds research notes, unless the repo already keeps them elsewhere.
 
 ---
 
 ## How this differs from the original
 
-This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills). The original ships 37 skills across four directories. This repo keeps 17 of them, adds three (`migrate-docs`, `flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
+This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which ships 31 skills plus 7 in progress across four directories. This repo keeps 15 of them, adds two (`flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
 
-**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills (unfinished upstream), the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, and the engineering skills built for inbound issue queues (`triage`, `wayfinder`) or occasional upkeep (`improve-codebase-architecture`, `wizard`). Thirty-seven is a library. Nineteen is a workflow.
+**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills, the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, the engineering skills built for inbound issue queues (`triage`, `wayfinder`) or occasional upkeep (`improve-codebase-architecture`, `wizard`), `diagnosing-bugs`, which no bug here has needed, and `implement-spec`, whose parallel worktrees cost more machinery than running `/implement` per ticket.
 
-**A size gate at the front.** Upstream's recommended flow is always spec, then tickets, then implement. That generates ceremony for work that fits in one session. Here, `/to-spec` and `/to-tickets` both check first whether they are worth running, and `/ask-skills` routes by size before anything else. The full flow exists only for work that spans sessions or people.
+**A size gate at the front.** Upstream's recommended flow is always spec, then tickets, then implement. That generates ceremony for work that fits in one session. Here, `/to-spec` and `/to-tickets` both check first whether they are worth running, and `/ask-skills` routes by size before anything else.
 
-**`implement` grew from 15 lines to about 135.** It was the thinnest skill upstream and the one used most. It now spells out review scaled to the change (inline for a slice, full `/code-review` for a ticket), the three documentation checks before finishing, moving the parent work item, the label swaps, the line between what the agent may do in git (commit) and what it may not (push, merge, rewrite history), and a closing reading guide so the user can follow the change file by file.
+**A glossary and no ADRs.** Upstream records decisions as ADR files next to its glossary. ADRs pile up, and many go stale as the code moves on. Here there is only the glossary; decisions live in the spec while they are being built and in the code once they are. See [The documentation model](#the-documentation-model).
 
-**`ARCHITECTURE.md` instead of ADRs.** Upstream records decisions as ADR files. ADRs accumulate: every reversal adds a document, and an agent has to read the whole stack to know the current state. This repo replaces them with a single present-tense `ARCHITECTURE.md` per level that is overwritten when things change. `domain-modeling` defines three file formats and the rules for keeping them small. Specs and tickets reference recorded decisions instead of restating them, so each fact has one home.
+**Setup in two questions.** Upstream's setup also configures triage labels and a multi-glossary layout. Here it asks where issues live and whether to keep the label names, and supports local markdown tickets for repos without GitHub.
+
+**`implement` does more.** Upstream's is six lines. This one scales review to the size of the change and fixes what it finds, moves the ticket's labels and the parent issue's checklist, draws the line between what the agent may do in git (commit) and what it may not (push, merge, rewrite history), and closes with a reading guide so you can follow the change file by file.
+
+**`code-review` looks for bugs.** Upstream reviews on two axes, Standards and Spec. This one adds Correctness, a third reviewer for wrong logic, edge cases, security, and the quality of the new tests, plus a blast-radius block for changes to shared code.
 
 **Six labels instead of five triage states.** Upstream's labels serve a triage skill for issues from strangers. Here each label is applied and removed by the skill that changes an issue's state, so none needs a human to keep it true, and two kind labels make the roadmap and the bug list filterable.
 
-**`grilling` works in rounds and sorts by stakes.** Upstream's grilling asks every currently askable question at once. The version here keeps that, and adds a sort: load-bearing decisions get their own question, low-stakes ones collapse into a defaults list accepted in a word.
+**`grilling` sorts by stakes and handles other people's decisions.** Upstream's grilling asks every currently askable question at once. The version here keeps that and adds a sort: load-bearing decisions get their own question, low-stakes ones collapse into a defaults list accepted in a word. When a question is someone else's call, the interview pauses on a questionnaire issue instead of a separate `to-questionnaire` skill; the questionnaire's structure is upstream's.
 
-**Questionnaires come out of the grill, not a separate skill.** Upstream has `to-questionnaire`, a standalone skill that interviews you about who a document is for and what you need back. Here the need only ever shows up mid-interview, when a question turns out to be someone else's call, so the grill handles it: the decision is deferred, the interview continues with what you can answer, and it pauses on a `needs-grilling` issue holding the settled decisions and the open questions per owner. The document structure is upstream's. The answers resume the same interview, in the same session or a later one, which asks only what they unblocked.
+**`flow-map` is new.** Before changing a complex flow you need to know what it does today, and docs and tests only tell part of it. The skill traces the code from entry points to effects and draws the result as diagrams in one HTML page, with every arrow backed by a `file:line`. A diagram without evidence is a guess that looks like a fact.
 
-**`setup-skills` writes the read path into `CLAUDE.md`.** The descent instruction is inlined rather than left behind a pointer, because `CLAUDE.md` is the only file guaranteed to be loaded. The project's `domain.md` holds only reading rules; writing rules stay in the skills.
-
-**`migrate-docs` is new.** Adopting the documentation model on an existing project means refiling whatever is already there. The skill reads old docs once in subagents, classifies each fact as current, stale, planned, or history, keeps only the first, routes the planned work to the tracker, and drops the rest. It reports before and after size, because a migration that produces docs as long as the ones it replaced has refiled history instead of dropping it.
-
-**`flow-map` is new.** Before changing a complex flow you need to know what it does today, and docs and tests only tell part of it. The skill traces the code from entry points to effects and draws the result as diagrams in one HTML page, with every arrow backed by a `file:line`. The citation rule is the point: a diagram without evidence is a guess that looks like a fact.
-
-**`research` notes carry an expiry.** They go to a fixed place, `docs/research/`, outside the default read path, and each one opens with the date and the exact versions it was verified against. Research rots faster than anything else in a repo, so the reader checks that line before trusting the rest.
-
-**Borrowed from pstack.** `unslop` as a skill. In `code-review`, the blast-radius block with its ladder of how sure a finding is. In `tdd`, the rule that no new test beats a bad test. In `writing-for-agents`, the rule to state the instruction and skip the reason. pstack's mode skill, playbooks, principle files, and multi-model routing were reviewed and not taken.
+**Borrowed from pstack.** `unslop` as a skill. In `code-review`, the blast-radius block with its ladder of how sure a finding is. In `tdd`, the rules that a test must fail for the right reason and that no new test beats a bad test. In `writing-for-agents`, the rule to state the instruction and skip the reason. pstack's mode skill, playbooks, principle files, and multi-model routing were reviewed and not taken.
 
 `SYNC.md` records the commit of each source repo that every skill was last compared against, and the decision taken.
 
