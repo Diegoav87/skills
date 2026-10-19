@@ -23,7 +23,7 @@ Four **state** labels say where an issue is in the flow. Each is applied and rem
 | `needs-grilling` | state | the user, filing a raw idea; `/grilling`, pausing on a questionnaire | `/to-spec`, when it publishes the spec |
 | `ready-for-agent` | state | `/to-spec`, `/to-tickets` | `/implement`, when it starts the ticket |
 | `in-progress` | state | `/implement`, when it starts | `/implement`, when the work is done |
-| `needs-review` | state | `/implement`, when the work is done | the user, by closing the ticket |
+| `needs-review` | state | `/implement`, when the work is done | the user, by closing the ticket or merging the pull request that closes it |
 | `bug` | kind | whoever files it | never |
 | `spec` | kind | `/to-spec`, on the spec issue | never |
 

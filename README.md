@@ -2,7 +2,7 @@
 
 A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, and review it.
 
-Seventeen skills, one workflow, one documentation file. Setup is two questions, and nothing in the skills assumes a language, framework, or repo layout. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
+Nineteen skills, one workflow, one documentation file. Setup is two questions, and nothing in the skills assumes a language, framework, or repo layout. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
 
 Based on [mattpocock/skills](https://github.com/mattpocock/skills), with pieces from [pstack](https://github.com/cursor/plugins/tree/main/pstack). See [How this differs from the original](#how-this-differs-from-the-original) for what changed and why.
 
@@ -84,6 +84,12 @@ Feature that fits one session, one developer
 Feature that spans several sessions or several people
   └── /grill-with-docs ──► /to-spec ──► /to-tickets ──► /implement (per ticket)
 
+A branch ready to merge
+  └── you review the commits ──► /pr ──► you merge
+
+You had to correct the agent for something that will happen again
+  └── /retro, before you clear the session
+
 An idea you cannot work on now
   └── file it as a two-line issue labelled needs-grilling; pick it up later
 
@@ -97,6 +103,7 @@ The full flow, step by step:
 2. **`/to-spec`**. Turns the conversation into a spec on your issue tracker. No new interview. It labels the issue `spec` and `ready-for-agent`.
 3. **`/to-tickets`**. Splits the spec into tracer-bullet vertical slices, each declaring which tickets block it. Only when slices can genuinely run in parallel. If the work is one slice, it stays one ticket.
 4. **`/implement`**, one ticket per fresh session. Marks the ticket `in-progress`, uses `/tdd` at seams agreed up front, reviews the change at the right scale and fixes what the review finds, marks the ticket `needs-review`, and commits to the current branch. It never pushes, merges, or rewrites history. It ends with a reading guide: what changed, which files to read in which order, and what was run.
+5. **`/pr`**, once you have read the commits and the branch is ready. It reruns the tests, pushes, and opens a pull request against `main` whose body shows the change, the evidence it works, and the risk of merging, with `Closes #n` for each ticket. Merging it closes them. One pull request per branch, however many `/implement` sessions built it.
 
 Keep steps 1 to 3 in one context window. Between phases, `/ask-skills` has a five-step tree for deciding whether to continue, clear, hand off, send work to a subagent, or compact.
 
@@ -122,6 +129,9 @@ In plain words: when talking cannot settle whether a design is right, the agent 
 
 **`implement`**, invoked by you. Builds one ticket. TDD at agreed seams, review scaled to the change with its findings fixed, moves the ticket's labels and its parent's checklist, commits on the branch, ends with a reading guide.
 In plain words: it builds one piece of work, checks it, and finishes by telling you what changed and in which order to read the files.
+
+**`pr`**, invoked by you. Checks the branch is ready and the tests pass, pushes it, and opens a pull request against `main` (or the branch you name). The body has a summary visual, before and after evidence from real runs, a one-way or two-way door call with the blast radius, and `Closes #n` for each ticket the branch completes.
+In plain words: when you are happy with the commits, this writes a pull request a reviewer can take in at a glance, and opens it. Merging is still yours.
 
 **`flow-map`**, invoked by you. Traces existing code from its entry points to its effects, then draws it: state diagrams, sequence diagrams and a write map in one self-contained HTML page, every arrow cited to a `file:line` in an evidence table, dated with the commit it traces. Ends with the surprises: what the code does that the docs and tests leave unsaid.
 In plain words: when a flow is too tangled to hold in your head, it reads the code for you and draws what actually happens, with a pointer to the line behind every arrow. Run it before grilling a change to that flow.
@@ -149,6 +159,9 @@ In plain words: the questioning engine behind `grill-with-docs`. Use it alone fo
 
 **`research`**, invoked by the agent. Delegates reading to a background agent that works from primary sources and writes a cited note, dated and naming the versions it checked. Notes are never updated; newer findings get a new note.
 In plain words: you ask a question, an agent reads the official docs in the background and leaves a dated note. The date is there because research goes stale fast.
+
+**`retro`**, invoked by you. Looks back at a session where the agent went wrong and proposes changes to its environment: an automated check for a mechanical mistake, a rule in `CODING_STANDARDS.md` for a judgement call, a glossary entry, a pointer to a hard-to-find file. Applies only the ones you pick, and shows each new check failing on the real mistake first.
+In plain words: when you had to correct the agent, this makes the repo stop the same mistake next time. Run it in the same session, and only for mistakes that will come back.
 
 **`handoff`**, invoked by you. Writes a portable markdown file to your temp folder so a session elsewhere can pick up. Narrow: for a new tool, a new folder, a colleague, or a side task.
 In plain words: a note for a different session to continue from. Most of the time you do not need it; `/ask-skills` explains the other four options.
@@ -196,7 +209,7 @@ Two kinds of file are snapshots and say so: research notes and flow maps open wi
 
 ## Conventions the skills assume
 
-- **The agent commits, and only commits.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing, merging, rebasing, amending, and committing on `main` are yours. You review the diff in the pull request.
+- **The agent commits; it pushes only when you run `/pr`.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing happens only through `/pr`, which you invoke after reading the commits. Merging, rebasing, amending, force-pushing, and committing on `main` are yours.
 - **Comments are about the code beside them.** They explain non-obvious logic and the reasons the code can't show. No pointers to specs, tickets, or issue numbers. Written in plain words, because comments are text you read.
 - **Issue tracker.** GitHub Issues through the `gh` CLI, local markdown files under `.scratch/`, or anything you describe once. `docs/agents/issue-tracker.md` says which, and the skills follow it.
 - **Labels are moved by skills, not by hand.** Four states, `needs-grilling`, `ready-for-agent`, `in-progress`, `needs-review`, each applied and removed by the skill that changes it, so a filter on any one of them is always true. Two kinds, `bug` and `spec`, set once when filing. The tracker file lists who owns each.
@@ -207,7 +220,7 @@ Two kinds of file are snapshots and say so: research notes and flow maps open wi
 
 ## How this differs from the original
 
-This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which ships 31 skills plus 7 in progress across four directories. This repo keeps 15 of them, adds two (`flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
+This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which ships 31 skills plus 7 in progress across four directories. This repo keeps 17 of them, adds two (`flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
 
 **Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills, the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, the engineering skills built for inbound issue queues (`triage`, `wayfinder`) or occasional upkeep (`improve-codebase-architecture`, `wizard`), `diagnosing-bugs`, which no bug here has needed, and `implement-spec`, whose parallel worktrees cost more machinery than running `/implement` per ticket.
 
@@ -224,6 +237,8 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 **Six labels instead of five triage states.** Upstream's labels serve a triage skill for issues from strangers. Here each label is applied and removed by the skill that changes an issue's state, so none needs a human to keep it true, and two kind labels make the roadmap and the bug list filterable.
 
 **`grilling` sorts by stakes and handles other people's decisions.** Upstream's grilling asks every currently askable question at once. The version here keeps that and adds a sort: load-bearing decisions get their own question, low-stakes ones collapse into a defaults list accepted in a word. When a question is someone else's call, the interview pauses on a questionnaire issue instead of a separate `to-questionnaire` skill; the questionnaire's structure is upstream's.
+
+**`pr` opens the pull request, and `retro` writes checks.** Upstream's `pr` is a body template the agent applies whenever it writes a PR. Here it is the one step where the agent pushes, invoked by you, and it reruns the tests for its evidence and links the tickets so merging closes them. `retro` keeps upstream's categories and its split between automated checks and `CODING_STANDARDS.md`, adds glossary fixes, and takes from pstack's `correct` the rule that a new check must be seen failing on the real mistake.
 
 **`flow-map` is new.** Before changing a complex flow you need to know what it does today, and docs and tests only tell part of it. The skill traces the code from entry points to effects and draws the result as diagrams in one HTML page, with every arrow backed by a `file:line`. A diagram without evidence is a guess that looks like a fact.
 

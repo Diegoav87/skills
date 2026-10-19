@@ -23,9 +23,14 @@ Default to the shortest path that fits.
 1. **`/grill-with-docs`**: sharpen the idea by interview, in rounds; low-stakes calls get batched. Settled terms go into `GLOSSARY.md`.
 2. **`/to-spec`**: the conversation becomes a spec on the tracker.
 3. **`/to-tickets`**: the spec becomes tracer-bullet tickets, each with its blocking edges. Only when slices can run in parallel.
-4. **`/implement`** per ticket, clearing context between each: `/tdd` at agreed seams, review scaled to the change, a commit on the current branch. Pushing and merging stay with you.
+4. **`/implement`** per ticket, clearing context between each: `/tdd` at agreed seams, review scaled to the change, a commit on the current branch.
 
 Keep steps 1–3 in one context window; each `/implement` starts fresh.
+
+## After the build
+
+- **A branch ready to merge** → review the commits yourself, then **`/pr`**. It reruns the tests, pushes, and opens a pull request against `main` (or the branch you name) with a summary visual, the evidence, the merge danger, and `Closes #n` for the tickets. One PR per branch, however many `/implement` sessions built it. Merging stays with you.
+- **You had to correct the agent for something that will happen again** → **`/retro`**, in the same session before you clear. It proposes checks, coding standards, glossary entries or pointers that stop the mistake, and applies the ones you pick. Skip it when the session went fine or the mistake was a one-off.
 
 ## Other starting points
 

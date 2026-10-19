@@ -1,0 +1,5 @@
+interface:
+  display_name: "Retro"
+  short_description: "Turn a session's mistakes into checks and rules"
+policy:
+  allow_implicit_invocation: false
