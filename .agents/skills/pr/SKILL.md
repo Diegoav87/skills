@@ -68,7 +68,7 @@ Closes #<n>
 - **Blast radius.** From the `/code-review` blast-radius block when it ran. Otherwise, name what calls the changed code beyond the diff, and how sure you are.
 - **Tickets.** `Closes #<n>` for each ticket the branch completes, `Part of #<n>` for a spec it only advances. Leave the line out on a local tracker.
 
-Use the terms in `GLOSSARY.md`. Write in the language of the repo's commits and docs, as the `unslop` skill prescribes, and skip preambles.
+Redact secrets from any output you quote: tokens, keys, connection strings. Use the terms in `GLOSSARY.md`. Write in the language of the repo's commits and docs, as the `unslop` skill prescribes, and skip preambles.
 
 ## 4. Push and open
 

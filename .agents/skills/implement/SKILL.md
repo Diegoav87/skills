@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 Implement the work described by the user in the spec or tickets.
 
-If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
+If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask. If the ticket contradicts the code or a convention in `CLAUDE.md`, stop and say so before building.
+
+If you are on `main`, ask for a branch before touching code.
 
 On a real tracker, mark the ticket as yours before touching code: remove `ready-for-agent`, add `in-progress`. Skip this for local files.
 
@@ -16,8 +18,8 @@ Run typechecking regularly and the affected tests as you go; run the full test s
 
 ## Review, scaled to the change
 
-- **Small, localized change** (a single slice, one or a few files): review it inline yourself, against the spec or ticket and for obvious smells. No subagents.
-- **Substantial change** (a whole ticket or spec, several modules): call the Skill tool with "code-review".
+- **Small, localized change** (a single slice, one or a few files): review it inline yourself, against the spec or ticket, for bugs, and for obvious smells. No subagents.
+- **Substantial change** (a whole ticket or spec, several modules): commit the work first, so the review can see it. Then call the Skill tool with "code-review", passing the commit you started from as the fixed point and the ticket or spec as the spec source.
 
 Fix every finding that holds up, then rerun the affected tests.
 
@@ -40,7 +42,7 @@ The parent moves when the work is done, not when the ticket closes. If review se
 
 ## Commit, but only commit
 
-When the work is done, commit it to the current branch with a message that says what changed and why. Never push, never merge, never rewrite history (no rebase, no amend, no force push). If you are on `main`, stop and ask for a branch before committing.
+When the work is done, commit it to the current branch with a message that says what changed and why. Never push, never merge, never rewrite history (no rebase, no amend, no force push).
 
 ## End with a reading guide
 
