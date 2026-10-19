@@ -10,7 +10,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | Our skill | Upstream path | Decision |
 |---|---|---|
 | to-spec | skills/engineering/to-spec | Rebased on his text at `49dd158` (2026-10-18). Ours keeps: the size gate, waiting on an open questionnaire, the `spec`/`ready-for-agent`/`needs-grilling` labels, and lean user stories instead of his "extremely extensive" list. |
-| to-tickets, code-review, resolving-merge-conflicts | skills/engineering/* | Reviewed 2026-09-28; ours kept, upstream changes were punctuation only. |
+| to-tickets | skills/engineering/to-tickets | Rebased on his text at `49dd158` (2026-10-18), taking sub-issues under the source issue and dropping "Blocked by" when edges are native. Ours keeps: the size gate, the parent left for `/implement` to move, and the closing one-ticket-per-`/implement` line. |
+| code-review, resolving-merge-conflicts | skills/engineering/* | Reviewed 2026-09-28; ours kept, upstream changes were punctuation only. |
 | tdd | skills/engineering/tdd | Ours kept (seams agreed once). Two rules added from pstack's tdd. |
 | implement | skills/engineering/implement | Ours kept; upstream is six lines. Added a reading-guide ending and a comment readability rule. |
 | diagnosing-bugs | skills/engineering/diagnosing-bugs | Ours kept (post-mortem). Redact section taken from upstream. |
