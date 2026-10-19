@@ -1,32 +1,30 @@
 ---
 name: to-spec
-description: Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
+description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec (you may know this document as a PRD). Do NOT interview the user — just synthesize what you already know.
+This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
-The issue tracker should have been provided to you. If not, stop and tell the user to run `/setup-skills`; you cannot run it yourself.
+The issue tracker should have been provided to you. If not, tell the user to run `/setup-skills`.
 
 ## First, check a spec is worth it
 
-A spec earns its cost when the work spans **multiple sessions or multiple people** — it's the shared artifact that lets others pick up the work. If it fits one session for one dev, skip this skill: go straight to `/to-tickets`, or `/implement` if it's a single slice. The conversation is the spec. Only continue below when the work is genuinely big or shared.
+A spec earns its cost when the work spans **multiple sessions or multiple people**: it's the shared artifact that lets others pick up the work. If it fits one session for one dev, skip this skill and `/implement` from the conversation. Only continue below when the work is genuinely big or shared.
 
 A spec fixes decisions, so it waits for all of them. If the interview paused on a questionnaire and any question in it is still unanswered, stop and point the user at that issue; resume the grill once the answers are in.
 
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect the decisions already recorded in `ARCHITECTURE.md`.
+1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the vocabulary in `GLOSSARY.md` throughout the spec.
 
-   Reference those decisions; don't restate them. If `ARCHITECTURE.md` already says the identity provider sits behind a port, the spec says "via the provider port" — it does not re-explain the choice. A decision written in two places is a decision that will be updated in one.
-
-2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better: the ideal number is one.
 
 Check with the user that these seams match their expectations.
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `spec` and `ready-for-agent` labels. If the spec came from an issue labelled `needs-grilling`, remove that label from it.
 
-Keep the spec lean: include a section only when it has real content — omit empty ones rather than writing "N/A". The spec fixes scope and decisions; it is not padding.
+Include a section only when it has real content; omit empty ones rather than writing "N/A".
 
 <spec-template>
 
@@ -48,7 +46,7 @@ A numbered list of user stories. Each user story should be in the format of:
 1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
 </user-story-example>
 
-Cover the real capabilities the feature delivers — enough to fix scope, not padded. Drop stories that just restate each other.
+Cover every capability the feature delivers, enough to fix scope. Drop stories that restate each other.
 
 ## Implementation Decisions
 
@@ -64,7 +62,7 @@ A list of implementation decisions that were made. This can include:
 
 Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
 
-Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts — not a working demo, just the important bits.
+Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
 
 ## Testing Decisions
 
