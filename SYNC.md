@@ -4,8 +4,8 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 
 ## mattpocock/skills
 
-- Cloned at: `c55ee46` (2026-09-18)
-- Last full comparison: none yet. Our skills were copied on 2026-08-05 from an unrecorded commit.
+- Reviewed at: `49dd158` (2026-10-09)
+- Last full comparison: 2026-10-19, every skill below.
 
 | Our skill | Upstream path | Decision |
 |---|---|---|
@@ -29,12 +29,12 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | prototype | skills/engineering/prototype | Copied verbatim at `c55ee46` (2026-09-28); upstream unchanged at `49dd158`. |
 | grilling | skills/productivity/grilling | Blended (2026-09-28): his rounds, frontier and question format; our stakes sort and defaults list. His "yes accepts the recommendation" line taken at `49dd158` (2026-10-18). |
 | writing-for-agents | skills/productivity/writing-for-agents | Copied at `c55ee46` (2026-09-28) with SKILL-MECHANICS.md. Ours adds two Pruning lines taken from pstack's authoring-a-skill playbook. |
-| (others pending first comparison) | | |
+| chief-of-staff (in progress), implement-spec | skills/* | Reviewed 2026-10-19, not taken. |
 
 ## cursor/plugins (pstack)
 
-- Cloned at: `ecc249f` (2026-09-25), sparse checkout of `pstack/` only
-- Last full comparison: none yet.
+- Reviewed at: `6b78e9f` (2026-10-19), sparse checkout of `pstack/` only
+- Last full comparison: 2026-10-19, for the skills below. Rewordings of skills we didn't take aren't tracked.
 
 | Our skill | pstack path | Decision |
 |---|---|---|
@@ -43,4 +43,4 @@ Last reviewed commit per reference repo, and the decision per skill. Update this
 | architect, interrogate, show-me-your-work, no-comments | skills/* | Reviewed 2026-09-28, not taken. |
 | correct | skills/correct | Not copied; its prove-the-check-fails rule and twice-is-a-class bar folded into retro (2026-10-19). |
 | unslop | skills/unslop | Copied at `ecc249f` (2026-09-28). Ours: model-invoked, with a trigger description. Body unchanged; re-diff on each sync. |
-| (others pending first comparison) | | |
+| sharpen, in-your-own-words, ketchup, benchmark-checklist, create-formal-verification-skill, principle-explain-the-number | skills/* | Added upstream since `ecc249f`; reviewed 2026-10-19, not taken for now. |
