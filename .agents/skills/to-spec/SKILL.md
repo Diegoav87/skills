@@ -8,6 +8,8 @@ This skill takes the current conversation context and codebase understanding and
 
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-skills`.
 
+Passed a wayfinder map and a piece of it, the source is the map instead of the conversation: read the map, then the answer on every closed ticket that piece rests on. Link the map in Further Notes.
+
 ## First, check a spec is worth it
 
 A spec earns its cost when the work spans **multiple sessions or multiple people**: it's the shared artifact that lets others pick up the work. If it fits one session for one dev, skip this skill and `/implement` from the conversation. Only continue below when the work is genuinely big or shared.

@@ -2,7 +2,7 @@
 
 A small, opinionated set of agent skills for shipping software with an AI coding agent: sharpen the idea, write it down once, build it in slices, and review it.
 
-Nineteen skills, one workflow, one documentation file. Setup is two questions, and nothing in the skills assumes a language, framework, or repo layout. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
+Twenty skills, one workflow, one documentation file. Setup is two questions, and nothing in the skills assumes a language, framework, or repo layout. Works with Claude Code, Codex, and any agent that reads `SKILL.md` files from `.agents/skills/`.
 
 Based on [mattpocock/skills](https://github.com/mattpocock/skills), with pieces from [pstack](https://github.com/cursor/plugins/tree/main/pstack). See [How this differs from the original](#how-this-differs-from-the-original) for what changed and why.
 
@@ -84,6 +84,9 @@ Feature that fits one session, one developer
 Feature that spans several sessions or several people
   └── /grill-with-docs ──► /to-spec ──► /to-tickets ──► /implement (per ticket)
 
+A plan too big for one grilling session
+  └── /wayfinder ──► one decision per session ──► /to-spec per piece ──► /to-tickets ──► /implement
+
 A branch ready to merge
   └── you review the commits ──► /pr ──► you merge
 
@@ -155,6 +158,9 @@ In plain words: it keeps a list of what the project's words mean, and which word
 **`grilling`**, invoked by the agent. Interview to stress-test a plan, in rounds over the decision tree. Big decisions get their own question, small ones collapse into a defaults list. A decision that belongs to someone outside the session is deferred: the interview pauses on a questionnaire issue and resumes when the answers are in.
 In plain words: the questioning engine behind `grill-with-docs`. Use it alone for a decision that touches no code. When a question is your boss's call, it writes your boss a questionnaire instead of guessing.
 
+**`wayfinder`**, invoked by you. For a plan too big for one grilling session. Charts a map issue on the tracker holding the destination, the decisions so far, the fog of questions not yet sharp enough to ask, and what is out of scope. Each open question becomes a child ticket typed grilling, prototype, research, or task, with blocking links, and each session settles one. Questions that belong to someone else collect in one questionnaire per map while the rest of the map moves on. When the map clears, it proposes which specs to write.
+In plain words: when a plan needs many sittings to decide, this keeps the open questions on the tracker, settles them one session at a time, and shows what is left. It only plans; building starts at `/to-spec`.
+
 ### Around the session
 
 **`research`**, invoked by the agent. Delegates reading to a background agent that works from primary sources and writes a cited note, dated and naming the versions it checked. Notes are never updated; newer findings get a new note.
@@ -196,7 +202,7 @@ _Avoid_: transportista, proveedor, socio
 
 Everything else has a home that changes with it:
 
-- **A decision being made** lives in the conversation, then in the spec and its tickets.
+- **A decision being made** lives in the conversation, or in a wayfinder ticket when the plan outgrows one conversation, then in the spec and its tickets.
 - **A decision that's built** lives in the code. The agent reads code faster than it reads a description of it.
 - **A reason the code can't show** goes in a comment beside the code it governs, and is deleted with it.
 - **A rule for the whole repo**, one an agent would otherwise break, goes in `CLAUDE.md` as a convention.
@@ -212,7 +218,7 @@ Two kinds of file are snapshots and say so: research notes and flow maps open wi
 - **The agent commits; it pushes only when you run `/pr`.** Committing is local and reversible, so skills do it on the current branch and say what they committed. Pushing happens only through `/pr`, which you invoke after reading the commits. Merging, rebasing, amending, force-pushing, and committing on `main` are yours.
 - **Comments are about the code beside them.** They explain non-obvious logic and the reasons the code can't show. No pointers to specs, tickets, or issue numbers. Written in plain words, because comments are text you read.
 - **Issue tracker.** GitHub Issues through the `gh` CLI, local markdown files under `.scratch/`, or anything you describe once. `docs/agents/issue-tracker.md` says which, and the skills follow it.
-- **Labels are moved by skills, not by hand.** Four states, `needs-grilling`, `ready-for-agent`, `in-progress`, `needs-review`, each applied and removed by the skill that changes it, so a filter on any one of them is always true. Two kinds, `bug` and `spec`, set once when filing. The tracker file lists who owns each.
+- **Labels are moved by skills, not by hand.** Four states, `needs-grilling`, `ready-for-agent`, `in-progress`, `needs-review`, each applied and removed by the skill that changes it, so a filter on any one of them is always true. Two kinds, `bug` and `spec`, set once when filing, plus five `wayfinder:` kinds for a map and its ticket types. The tracker file lists who owns each.
 - **`.scratch/` is scaffolding**, not record. Local tickets live there, get deleted when done, and the directory is gitignored.
 - **`docs/research/`** holds research notes, unless the repo already keeps them elsewhere.
 
@@ -220,9 +226,9 @@ Two kinds of file are snapshots and say so: research notes and flow maps open wi
 
 ## How this differs from the original
 
-This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which ships 31 skills plus 7 in progress across four directories. This repo keeps 17 of them, adds two (`flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
+This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which ships 31 skills plus 7 in progress across four directories. This repo keeps 18 of them, adds two (`flow-map`, and `unslop` from pstack), and flattens everything into a single namespace. The reasoning behind each change:
 
-**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills, the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, the engineering skills built for inbound issue queues (`triage`, `wayfinder`) or occasional upkeep (`improve-codebase-architecture`, `wizard`), `diagnosing-bugs`, which no bug here has needed, and `implement-spec`, whose parallel worktrees cost more machinery than running `/implement` per ticket.
+**Fewer skills.** A skill you do not use is not free. It is one more thing the agent can reach for, and one more thing you have to remember exists before deciding it does not apply. Dropped: the `in-progress/` skills, the `misc/` skills (one-off tooling tied to a TypeScript setup), the productivity skills for prose and teaching, `triage`, built for an inbound issue queue, the skills for occasional upkeep (`improve-codebase-architecture`, `wizard`), `diagnosing-bugs`, which no bug here has needed, and `implement-spec`, whose parallel worktrees cost more machinery than running `/implement` per ticket.
 
 **A size gate at the front.** Upstream's recommended flow is always spec, then tickets, then implement. That generates ceremony for work that fits in one session. Here, `/to-spec` and `/to-tickets` both check first whether they are worth running, and `/ask-skills` routes by size before anything else.
 
@@ -237,6 +243,8 @@ This started as a fork of [mattpocock/skills](https://github.com/mattpocock/skil
 **Six labels instead of five triage states.** Upstream's labels serve a triage skill for issues from strangers. Here each label is applied and removed by the skill that changes an issue's state, so none needs a human to keep it true, and two kind labels make the roadmap and the bug list filterable.
 
 **`grilling` sorts by stakes and handles other people's decisions.** Upstream's grilling asks every currently askable question at once. The version here keeps that and adds a sort: load-bearing decisions get their own question, low-stakes ones collapse into a defaults list accepted in a word. When a question is someone else's call, the interview pauses on a questionnaire issue instead of a separate `to-questionnaire` skill; the questionnaire's structure is upstream's.
+
+**`wayfinder` only plans, and waits on other people.** Upstream lets a map's Notes switch it into building, which is how agents end up writing production code in the middle of a map. Here a map produces decisions only. Questions owned by someone outside the session collect in one questionnaire per map, built on the grill's, and only the tickets they block wait. Research goes through this repo's `research` notes rather than throwaway branches. A cleared map proposes one spec per piece that can be built on its own, instead of one spec for everything.
 
 **`pr` opens the pull request, and `retro` writes checks.** Upstream's `pr` is a body template the agent applies whenever it writes a PR. Here it is the one step where the agent pushes, invoked by you, and it reruns the tests for its evidence and links the tickets so merging closes them. `retro` keeps upstream's categories and its split between automated checks and `CODING_STANDARDS.md`, adds glossary fixes, and takes from pstack's `correct` the rule that a new check must be seen failing on the real mistake.
 

@@ -15,6 +15,7 @@ Default to the shortest path that fits.
 - **Bug or one-file change** → `/implement`, or just fix it. No spec, no tickets.
 - **Feature that fits one session, one dev** → `/grill-with-docs` to sharpen it, then `/implement` right here. The conversation is the spec.
 - **Feature that spans several sessions or several people** → the main flow below.
+- **A plan too big for one grill**: the tree keeps widening, or whole branches wait on research, prototypes, or other people → `/wayfinder`, in the grill's session if one is running, so it charts from what's settled. It records the open decisions as tickets on the tracker and settles one per session. When the map clears, `/to-spec` per piece it proposes, then the main flow from step 3.
 - **An idea you can't work on now** → file it as a two-line issue labelled `needs-grilling`, plus `bug` if it's a defect. `/grill-with-docs` picks it up later; `/to-spec` retires the label.
 - **A grill blocked on someone else's answer** → say whose call it is and keep going. The grill pauses on a questionnaire issue labelled `needs-grilling`, holding what you settled and what they must. Once the answers are in, say so here or run `/grill-with-docs` on the issue; it asks only what the answers unblocked, then `/to-spec`.
 

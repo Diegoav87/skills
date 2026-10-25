@@ -45,6 +45,11 @@ Wait for the answers. Each round reshapes the tree: settled decisions push the
 frontier outward and unblock what depended on them. Recompute the frontier and ask
 the next round.
 
+When the tree is still widening after a few rounds, or whole branches wait on
+research, prototypes, or other people, the plan is bigger than one session. Say so
+and suggest `/wayfinder`, which charts a map from what is settled so far. Inside a
+wayfinder ticket, a new branch goes to the map as a ticket or fog instead.
+
 ## Facts are yours, decisions are the user's, some are someone else's
 
 Finding facts (filesystem, tools, code, docs) is your job, never the user's. When a

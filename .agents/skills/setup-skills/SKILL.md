@@ -9,7 +9,7 @@ disable-model-invocation: true
 Scaffold the small per-repo configuration the other skills read:
 
 - **Issue tracker**: where specs and tickets live, written to `docs/agents/issue-tracker.md`
-- **Labels**: the six labels the skills apply and remove
+- **Labels**: the labels the skills apply, listed in the tracker template
 - **An `## Agent skills` block** in `CLAUDE.md` or `AGENTS.md` pointing at the tracker file and at `GLOSSARY.md`
 
 Explore, present what you found, confirm with the user, then write.

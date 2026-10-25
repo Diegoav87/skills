@@ -14,9 +14,22 @@ Specs and tickets for this repo live as GitHub issues. Use the `gh` CLI for ever
 - **Mark an issue blocked by another**: `gh api --method POST repos/<owner>/<repo>/issues/<child>/dependencies/blocked_by -F issue_id=<blocker-db-id>`. A database id comes from `gh api repos/<owner>/<repo>/issues/<n> --jq .id`, never the `#number`. Where dependencies aren't available, put `Blocked by: #<n>, #<n>` at the top of the child body.
 - **Find the frontier**: the open tickets with no open blocker (`issue_dependencies_summary.blocked_by == 0` in `gh api repos/<owner>/<repo>/issues/<n>`, or every issue in the `Blocked by` line closed).
 
+## Wayfinding operations
+
+Used by `/wayfinder`. The map is an issue; its tickets are its sub-issues.
+
+- **Map**: `gh issue create --label wayfinder:map`.
+- **Ticket**: a sub-issue of the map (see **Make an issue a sub-issue of a parent**) with one `wayfinder:<type>` label.
+- **Blocking**: as in **Mark an issue blocked by another**.
+- **Claim**: `gh issue edit <n> --add-assignee @me`, the session's first write. Release with `--remove-assignee @me`.
+- **Waiting on an owner**: a `Waiting on: <owner>` line at the top of the body, removed when the answer is posted.
+- **Frontier**: the map's sub-issues (`gh api repos/<owner>/<repo>/issues/<map>/sub_issues`) that are open, carry a `wayfinder:<type>` label, and have no open blocker, no assignee, and no `Waiting on:` line. First in map order wins.
+- **Resolve**: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then add the gist and link to the map's Decisions so far with `gh issue edit <map> --body-file <file>`.
+- **Reopen**: `gh issue reopen <n> --comment "<the conflict>"`.
+
 ## Labels
 
-Four **state** labels say where an issue is in the flow. Each is applied and removed by a skill, so they never need updating by hand. Two **kind** labels say what an issue is and never change. Edit the strings if this tracker uses others.
+Four **state** labels say where an issue is in the flow. Each is applied and removed by a skill, so they never need updating by hand. **Kind** labels say what an issue is and never change. Edit the strings if this tracker uses others.
 
 | Label | Kind | Applied by | Removed by |
 |---|---|---|---|
@@ -26,6 +39,8 @@ Four **state** labels say where an issue is in the flow. Each is applied and rem
 | `needs-review` | state | `/implement`, when the work is done | the user, by closing the ticket or merging the pull request that closes it |
 | `bug` | kind | whoever files it | never |
 | `spec` | kind | `/to-spec`, on the spec issue | never |
+| `wayfinder:map` | kind | `/wayfinder`, on the map | never |
+| `wayfinder:research`, `wayfinder:prototype`, `wayfinder:grilling`, `wayfinder:task` | kind | `/wayfinder`, one on each ticket | never |
 
 Useful queries:
 
@@ -33,6 +48,7 @@ Useful queries:
 - What an agent can start now: `gh issue list --label ready-for-agent`, minus the ones with open blockers
 - What is waiting for the user's review: `gh issue list --label needs-review`
 - The roadmap without the tickets: `gh issue list --label spec`
+- Plans being charted: `gh issue list --label wayfinder:map`
 
 ## Parent work items
 

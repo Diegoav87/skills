@@ -17,3 +17,16 @@ Specs and tickets for this repo live as markdown files under `.scratch/`, which 
 - **Blocking**: a `Blocked by:` line listing ticket numbers. A ticket is unblocked once none of the files it lists still exist.
 - **Frontier**: the ticket files in the feature's `issues/` directory with no remaining blocker; lowest number first.
 - **Comments**: append to the bottom of the file under a `## Comments` heading.
+
+## Wayfinding operations
+
+Used by `/wayfinder`. The map is a file with one file per ticket beside it.
+
+- **Map**: `.scratch/<effort-slug>/map.md`.
+- **Ticket**: `.scratch/<effort-slug>/issues/<NN>-<slug>.md`, numbered from `01`, with a `Type:` line holding `research`, `prototype`, `grilling`, or `task`. Resolved tickets stay: the map links them.
+- **Blocking**: a `Blocked by:` line listing ticket numbers. A ticket is unblocked when every ticket it lists is resolved.
+- **Claim**: add `Status: claimed` and save, before any other work. Release by removing the line.
+- **Waiting on an owner**: a `Waiting on: <owner>` line, removed when the answer is posted.
+- **Frontier**: ticket files with no `Status:` line, no unresolved blocker, and no `Waiting on:` line; lowest number first.
+- **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then add the gist and link to the map's Decisions so far.
+- **Reopen**: remove the `Status:` line and note the conflict under `## Comments`.
